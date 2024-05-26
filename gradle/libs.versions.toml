@@ -21,6 +21,7 @@ koin-android = "3.5.3"
 koin-android-compose = "3.5.3"
 koin-compose-multiplatform = "1.1.2"
 koin-core = "3.6.0-wasm-alpha2"
+ktor = "2.3.11"
 
 
 [libraries]
@@ -45,6 +46,9 @@ koin-compose-multiplatform = { module = "io.insert-koin:koin-compose", version.r
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-core" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin-core" }
 koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin-core" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
