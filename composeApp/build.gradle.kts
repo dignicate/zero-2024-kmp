@@ -116,6 +116,7 @@ android {
         // Android Studio Preview support
         implementation(libs.compose.ui.tooling.preview)
         debugImplementation(libs.compose.ui.tooling)
+        implementation(libs.kotlinx.coroutines.android)
     }
 }
 
