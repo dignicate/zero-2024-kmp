@@ -66,6 +66,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.koin.core)
             implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.serialization)
             implementation(libs.kotlinx.serialization.json)
         }
         iosMain.dependencies {
