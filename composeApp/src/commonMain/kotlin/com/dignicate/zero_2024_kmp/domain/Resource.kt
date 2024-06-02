@@ -23,7 +23,6 @@ fun <S: Any, T: Any> MutableSharedFlow<S>.mapToResource(
     mapError: (Throwable) -> Error = { Error.Unknown(it) },
 ): StateFlow<Resource<T>> {
     return mapToResourceAsFlow(
-        scope,
         then,
         mapError,
     ).stateIn(
@@ -35,7 +34,6 @@ fun <S: Any, T: Any> MutableSharedFlow<S>.mapToResource(
 
 @OptIn(ExperimentalCoroutinesApi::class)
 fun <S: Any, T: Any> MutableSharedFlow<S>.mapToResourceAsFlow(
-    scope: CoroutineScope,
     then: (S) -> Flow<Result<T>>,
     mapError: (Throwable) -> Error = { Error.Unknown(it) },
 ): Flow<Resource<T>> {
