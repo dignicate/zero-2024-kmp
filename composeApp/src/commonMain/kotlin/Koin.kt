@@ -1,5 +1,6 @@
 import com.dignicate.zero_2024_kmp.data.sample.ApiService
 import com.dignicate.zero_2024_kmp.data.sample.ApiServiceKtorImpl
+import com.dignicate.zero_2024_kmp.domain.spla.BukiRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
@@ -40,7 +41,7 @@ val apiModule = module {
 }
 
 private val domainModule = module {
-//    single { AddDataUseCase() }
+    single<BukiRepository> { BukiRepositoryImpl(get()) }
 }
 
 private val uiModule = module {
