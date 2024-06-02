@@ -6,12 +6,6 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.json
 
-val client = HttpClient {
-    install(ContentNegotiation) {
-        json()
-    }
-}
-
 interface ApiService {
     suspend fun getTodoData(): TodoDto
 }
