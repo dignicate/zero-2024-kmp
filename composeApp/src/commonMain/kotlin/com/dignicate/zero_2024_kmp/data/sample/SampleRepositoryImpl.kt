@@ -2,12 +2,25 @@ package com.dignicate.zero_2024_kmp.data.sample
 
 import com.dignicate.zero_2024_kmp.domain.sample.SampleRepository
 import com.dignicate.zero_2024_kmp.domain.sample.Todo
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.launch
 
 class SampleRepositoryImpl(private val apiService: ApiService) : SampleRepository {
-    override fun getTodoData(): Flow<Todo> {
-        throw NotImplementedError()
-//        return apiService.getTodoData()
+    override fun getTodoData(): Flow<Result<Todo>> {
+        return callbackFlow {
+            val job = launch {
+                try {
+                    val todoDto = apiService.getTodoData()
+                    val todo = todoDto.toDomain()
+                    trySend(Result.success(todo))
+                } catch (e: Exception) {
+                    trySend(Result.failure(e))
+                }
+            }
+            awaitClose { job.cancel() }
+        }
     }
 }
 
