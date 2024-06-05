@@ -1,5 +1,8 @@
 import com.dignicate.zero_2024_kmp.data.sample.ApiService
 import com.dignicate.zero_2024_kmp.data.sample.ApiServiceKtorImpl
+import com.dignicate.zero_2024_kmp.data.sample.SampleRepositoryImpl
+import com.dignicate.zero_2024_kmp.domain.sample.SampleRepository
+import com.dignicate.zero_2024_kmp.domain.sample.SampleUseCase
 import com.dignicate.zero_2024_kmp.domain.spla.BukiRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -41,6 +44,8 @@ val apiModule = module {
 }
 
 private val domainModule = module {
+    single<SampleRepository> { SampleRepositoryImpl(get()) }
+    single<SampleUseCase> { SampleUseCase(get()) }
     single<BukiRepository> { BukiRepositoryImpl(get()) }
 }
 
