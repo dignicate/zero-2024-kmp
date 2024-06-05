@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 
-class ViewModel {
+open class ViewModel {
     private val viewModelJob = Job()
     val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
