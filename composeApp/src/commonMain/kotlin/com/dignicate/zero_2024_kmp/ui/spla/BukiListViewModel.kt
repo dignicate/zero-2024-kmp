@@ -9,7 +9,9 @@ class BukiListViewModel(
 ) : ViewModel() {
 
     fun onCreate() {
+        viewModelScope.launch {
 
+        }
     }
 
     fun onResume() {

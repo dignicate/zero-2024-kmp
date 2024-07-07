@@ -18,7 +18,6 @@ import zero2024kmp.composeapp.generated.resources.compose_multiplatform
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-@Preview
 fun App() {
     MaterialTheme {
         initKoin()
@@ -44,4 +43,10 @@ private fun Demo() {
             }
         }
     }
+}
+
+@Preview
+@Composable
+private fun DemoPreview() {
+    Demo()
 }
