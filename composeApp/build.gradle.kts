@@ -72,6 +72,8 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.logging)
+            implementation(libs.androidx.lifecycle.viewmodel)
+
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
