@@ -114,14 +114,20 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     dependencies {
-        debugImplementation(libs.compose.ui.tooling)
         // Compose
         val composeBom = platform("androidx.compose:compose-bom:2024.03.00")
         implementation(composeBom)
         // Android Studio Preview support
         implementation(libs.compose.ui.tooling.preview)
         debugImplementation(libs.compose.ui.tooling)
+
         implementation(libs.kotlinx.coroutines.android)
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.15"
+    }
+    buildFeatures {
+        compose = true
     }
 }
 
