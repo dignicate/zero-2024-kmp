@@ -5,13 +5,11 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.koin.mp.KoinPlatform.getKoin
 
 @Composable
 fun BukiListScreen(
     modifier: Modifier,
-    viewModel: BukiListViewModel = getKoin().get(),
+//    viewModel: BukiListViewModel = getKoin().get(),
 ) {
     Scaffold(
         modifier = modifier,
@@ -26,8 +24,3 @@ fun BukiListScreen(
     )
 }
 
-@Preview
-@Composable
-private fun BukiListScreenPreview() {
-    BukiListScreen(Modifier)
-}
