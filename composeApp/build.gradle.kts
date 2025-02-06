@@ -73,6 +73,7 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.logging)
             implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.stately.common)
 
         }
         iosMain.dependencies {
