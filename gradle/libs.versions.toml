@@ -11,9 +11,9 @@ androidx-espresso-core = "3.6.1"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 compose = "1.7.7"
-compose-plugin = "1.6.2"
+compose-plugin = "1.7.3"
 junit = "4.13.2"
-kotlin = "1.9.23"
+kotlin = "2.0.10"
 kotlinxCoroutinesCore = "1.8.0"
 kotlinxSerializationJson = "1.6.3"
 uiToolingPreviewDesktop = "1.6.8"
@@ -23,7 +23,7 @@ koin-android = "3.5.3"
 koin-android-compose = "3.5.3"
 koin-compose-multiplatform = "1.1.2"
 koin-core = "4.0.2"
-ktor = "2.3.11"
+ktor = "3.0.3"
 coroutines = "1.8.0"
 logging = "1.4.1"
 stately-common = "2.1.0"
@@ -62,9 +62,12 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 logging = { module = "org.lighthousegames:logging", version.ref = "logging" }
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle-viewmodel" }
 stately-common = { module = "co.touchlab:stately-common", version.ref = "stately-common" }
+stately-isolation = { module = "co.touchlab:stately-isolation", version.ref = "stately-common" }
+stately-iso-collection = { module = "co.touchlab:stately-iso-collection", version.ref = "stately-common" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
