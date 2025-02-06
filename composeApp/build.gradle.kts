@@ -104,6 +104,9 @@ android {
         compose = true
     }
 }
+dependencies {
+    implementation(libs.androidx.ui.android)
+}
 
 compose.desktop {
     application {
