@@ -8,5 +8,7 @@ import com.dignicate.zero_2024_kmp.ui.automobile.AutomobileCompanyListScreen
 @Preview
 @Composable
 private fun AutomobileCompanyListScreenPreview() {
-    AutomobileCompanyListScreen(Modifier)
+    AutomobileCompanyListScreen(
+        modifier = Modifier,
+    )
 }
