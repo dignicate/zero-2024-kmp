@@ -4,6 +4,8 @@ import com.dignicate.zero_2024_kmp.data.sample.SampleRepositoryImpl
 import com.dignicate.zero_2024_kmp.domain.sample.SampleRepository
 import com.dignicate.zero_2024_kmp.domain.sample.SampleUseCase
 import com.dignicate.zero_2024_kmp.domain.spla.BukiRepository
+import com.dignicate.zero_2024_kmp.ui.automobile.AutomobileCompanyListScreen
+import com.dignicate.zero_2024_kmp.ui.automobile.AutomobileCompanyListViewModel
 import com.dignicate.zero_2024_kmp.ui.spla.BukiListViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -51,12 +53,7 @@ private val domainModule = module {
 }
 
 private val uiModule = module {
-    single<BukiListViewModel> {
-        BukiListViewModel(get())
+    single<AutomobileCompanyListViewModel> {
+        AutomobileCompanyListViewModel()
     }
-//    single {
-//        AddDataViewModel(
-//            addDataUseCase = get(),
-//        )
-//    }
 }

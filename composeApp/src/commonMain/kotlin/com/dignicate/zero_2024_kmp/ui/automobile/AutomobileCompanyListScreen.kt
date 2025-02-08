@@ -5,10 +5,12 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import org.koin.mp.KoinPlatform.getKoin
 
 @Composable
 fun AutomobileCompanyListScreen(
     modifier: Modifier,
+    viewModel: AutomobileCompanyListViewModel = getKoin().get(),
 ) {
     Scaffold(
         modifier = modifier,
