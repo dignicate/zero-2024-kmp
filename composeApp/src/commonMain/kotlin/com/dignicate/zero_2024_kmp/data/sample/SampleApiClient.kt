@@ -5,11 +5,11 @@ import io.ktor.client.call.body
 import io.ktor.client.request.*
 import org.lighthousegames.logging.logging
 
-interface ApiService {
+interface SampleApiClient {
     suspend fun getTodoData(): TodoDto
 }
 
-class ApiServiceKtorImpl(private val client: HttpClient) : ApiService {
+class ApiServiceKtorImpl(private val client: HttpClient) : SampleApiClient {
     override suspend fun getTodoData(): TodoDto {
         logging().d { "getTodoData()" }
         return client

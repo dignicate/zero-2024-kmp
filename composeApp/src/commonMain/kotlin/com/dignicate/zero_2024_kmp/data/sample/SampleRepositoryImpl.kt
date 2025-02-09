@@ -7,12 +7,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 
-class SampleRepositoryImpl(private val apiService: ApiService) : SampleRepository {
+class SampleRepositoryImpl(private val sampleApiClient: SampleApiClient) : SampleRepository {
     override fun getTodoData(): Flow<Result<Todo>> {
         return callbackFlow {
             val job = launch {
                 try {
-                    val todoDto = apiService.getTodoData()
+                    val todoDto = sampleApiClient.getTodoData()
                     val todo = todoDto.toDomain()
                     trySend(Result.success(todo))
                 } catch (e: Exception) {

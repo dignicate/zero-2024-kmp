@@ -23,6 +23,7 @@ import zero2024kmp.composeapp.generated.resources.compose_multiplatform
 @Composable
 fun App() {
     MaterialTheme {
+        initLogger()
         initKoin()
 //        Demo()
         AutomobileCompanyListScreen(

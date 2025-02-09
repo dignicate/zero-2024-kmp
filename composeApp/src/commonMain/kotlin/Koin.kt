@@ -1,12 +1,13 @@
-import com.dignicate.zero_2024_kmp.data.sample.ApiService
+import com.dignicate.zero_2024_kmp.data.automobile.AutomobileRepositoryImpl
+import com.dignicate.zero_2024_kmp.data.sample.SampleApiClient
 import com.dignicate.zero_2024_kmp.data.sample.ApiServiceKtorImpl
 import com.dignicate.zero_2024_kmp.data.sample.SampleRepositoryImpl
+import com.dignicate.zero_2024_kmp.domain.automobile.AutomobileRepository
+import com.dignicate.zero_2024_kmp.domain.automobile.AutomobileUseCase
 import com.dignicate.zero_2024_kmp.domain.sample.SampleRepository
 import com.dignicate.zero_2024_kmp.domain.sample.SampleUseCase
 import com.dignicate.zero_2024_kmp.domain.spla.BukiRepository
-import com.dignicate.zero_2024_kmp.ui.automobile.AutomobileCompanyListScreen
 import com.dignicate.zero_2024_kmp.ui.automobile.AutomobileCompanyListViewModel
-import com.dignicate.zero_2024_kmp.ui.spla.BukiListViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
@@ -43,13 +44,15 @@ val ktorModule = module {
 }
 
 val apiModule = module {
-    single<ApiService> { ApiServiceKtorImpl(get()) }
+    single<SampleApiClient> { ApiServiceKtorImpl(get()) }
 }
 
 private val domainModule = module {
     single<SampleRepository> { SampleRepositoryImpl(get()) }
     single<SampleUseCase> { SampleUseCase(get()) }
+    single<AutomobileRepository> { AutomobileRepositoryImpl() }
     single<BukiRepository> { BukiRepositoryImpl(get()) }
+    single<AutomobileUseCase> { AutomobileUseCase(get()) }
 }
 
 private val uiModule = module {
