@@ -18,7 +18,7 @@ class AutomobileUseCase(
         fetchTrigger
             .mapToResource(
                 scope,
-                then = { repository.getAutomobileCompanyList() },
+                then = { repository.getAutomobileCompanyList(it.limit, it.page) },
             )
 
     suspend fun fetch(limit: Int, page: Int) {
