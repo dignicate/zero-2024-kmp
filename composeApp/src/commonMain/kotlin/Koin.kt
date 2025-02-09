@@ -1,3 +1,5 @@
+import com.dignicate.zero_2024_kmp.data.automobile.AutomobileApiClient
+import com.dignicate.zero_2024_kmp.data.automobile.AutomobileApiClientImpl
 import com.dignicate.zero_2024_kmp.data.automobile.AutomobileRepositoryImpl
 import com.dignicate.zero_2024_kmp.data.sample.SampleApiClient
 import com.dignicate.zero_2024_kmp.data.sample.ApiServiceKtorImpl
@@ -45,18 +47,19 @@ val ktorModule = module {
 
 val apiModule = module {
     single<SampleApiClient> { ApiServiceKtorImpl(get()) }
+    single<AutomobileApiClient> { AutomobileApiClientImpl(get()) }
 }
 
 private val domainModule = module {
     single<SampleRepository> { SampleRepositoryImpl(get()) }
     single<SampleUseCase> { SampleUseCase(get()) }
-    single<AutomobileRepository> { AutomobileRepositoryImpl() }
+    single<AutomobileRepository> { AutomobileRepositoryImpl(get()) }
     single<BukiRepository> { BukiRepositoryImpl(get()) }
     single<AutomobileUseCase> { AutomobileUseCase(get()) }
 }
 
 private val uiModule = module {
     single<AutomobileCompanyListViewModel> {
-        AutomobileCompanyListViewModel()
+        AutomobileCompanyListViewModel(get())
     }
 }
