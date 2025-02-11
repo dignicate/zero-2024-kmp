@@ -2,7 +2,6 @@ package com.dignicate.zero_2024_kmp.ui.automobile
 
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
@@ -10,6 +9,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import com.dignicate.zero_2024_kmp.ui.CustomTopAppBar
 import org.koin.mp.KoinPlatform.getKoin
 
 @Composable
@@ -33,11 +33,21 @@ fun AutomobileCompanyListScreen(
         }
     }
 
+    AutomobileCompanyListView(
+        modifier = modifier,
+    )
+}
+
+@Composable
+fun AutomobileCompanyListView(
+    modifier: Modifier,
+) {
     Scaffold(
         modifier = modifier,
         topBar = {
-            TopAppBar(
-                title = { Text("Companies") },
+            CustomTopAppBar(
+                modifier = Modifier,
+                text = "Automobile Company List",
             )
         },
         content = {

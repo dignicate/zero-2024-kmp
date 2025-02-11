@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.dignicate.zero_2024_kmp.ui.automobile.AutomobileCompanyListScreen
+import com.dignicate.zero_2024_kmp.util.logger
 import zero2024kmp.composeapp.generated.resources.Res
 import zero2024kmp.composeapp.generated.resources.compose_multiplatform
 
@@ -35,7 +36,13 @@ private val DarkColorPalette = darkColors(
 
 @Composable
 fun MyCustomTheme(content: @Composable () -> Unit) {
-    val colors = if (isSystemInDarkTheme()) DarkColorPalette else LightColorPalette
+    val colors = if (isSystemInDarkTheme()) {
+        logger.d("DarkColorPalette")
+        DarkColorPalette
+    } else {
+        logger.d("LightColorPalette")
+        LightColorPalette
+    }
 
     MaterialTheme(
         colors = colors,
@@ -46,10 +53,9 @@ fun MyCustomTheme(content: @Composable () -> Unit) {
 
 @Composable
 fun App() {
+    initLogger()
+    initKoin()
     MyCustomTheme {
-        initLogger()
-        initKoin()
-//        Demo()
         AutomobileCompanyListScreen(
             modifier = Modifier,
         )
@@ -81,10 +87,4 @@ private fun Demo() {
             }
         }
     }
-}
-
-@Preview
-@Composable
-private fun DemoPreview() {
-    Demo()
 }
