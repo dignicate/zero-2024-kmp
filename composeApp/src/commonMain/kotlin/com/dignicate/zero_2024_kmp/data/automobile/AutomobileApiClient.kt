@@ -7,7 +7,7 @@ import io.ktor.client.request.parameter
 
 interface AutomobileApiClient {
     suspend fun getCompanyList(limit: Int, page: Int): List<CompanyDto>
-    suspend fun close()
+    fun close()
 }
 
 class AutomobileApiClientImpl(private val client: HttpClient) : AutomobileApiClient {
@@ -20,7 +20,7 @@ class AutomobileApiClientImpl(private val client: HttpClient) : AutomobileApiCli
             .body()
     }
 
-    override suspend fun close() {
+    override fun close() {
         client.close()
     }
 }
