@@ -5,55 +5,36 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Alignment
 import org.jetbrains.compose.resources.painterResource
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.dignicate.zero_2024_kmp.ui.automobile.AutomobileCompanyListScreen
-import com.dignicate.zero_2024_kmp.util.logger
+import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
+import com.dignicate.zero_2024_kmp.ui.design.darkExColors
+import com.dignicate.zero_2024_kmp.ui.design.lightExColors
 import zero2024kmp.composeapp.generated.resources.Res
 import zero2024kmp.composeapp.generated.resources.compose_multiplatform
-
-private val LightColorPalette = lightColors(
-    primary = Color(0xFF6200EE),
-    secondary = Color(0xFF03DAC5),
-    background = Color.White,
-)
-
-private val DarkColorPalette = darkColors(
-    primary = Color(0xFFBB86FC),
-    secondary = Color(0xFF03DAC5),
-    background = Color.Black,
-)
-
-@Composable
-fun MyCustomTheme(content: @Composable () -> Unit) {
-    val colors = if (isSystemInDarkTheme()) {
-        logger.d("DarkColorPalette")
-        DarkColorPalette
-    } else {
-        logger.d("LightColorPalette")
-        LightColorPalette
-    }
-
-    MaterialTheme(
-        colors = colors,
-        content = content
-    )
-}
 
 
 @Composable
 fun App() {
     initLogger()
     initKoin()
-    MyCustomTheme {
+
+    val exColors = if (isSystemInDarkTheme()) {
+        darkExColors()
+    } else {
+        lightExColors()
+    }
+
+    MyCustomTheme(
+        exColors = exColors,
+    ) {
         AutomobileCompanyListScreen(
             modifier = Modifier,
         )

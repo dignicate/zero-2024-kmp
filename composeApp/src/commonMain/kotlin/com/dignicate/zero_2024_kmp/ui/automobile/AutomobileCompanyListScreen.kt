@@ -9,7 +9,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.dignicate.zero_2024_kmp.ui.CustomTopAppBar
+import com.dignicate.zero_2024_kmp.ui.appbar.CustomTopAppBar
 import org.koin.mp.KoinPlatform.getKoin
 
 @Composable
