@@ -1,5 +1,6 @@
 package com.dignicate.zero_2024_kmp.domain
 
+import com.dignicate.zero_2024_kmp.util.logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -9,7 +10,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
-import org.lighthousegames.logging.logging
 
 sealed class Resource<out T: Any> {
     data object Initialized : Resource<Nothing>()
@@ -54,7 +54,7 @@ fun <S: Any, T: Any> MutableSharedFlow<S>.mapToResourceAsFlow(
                         )
                     }
             } catch (t: Throwable) {
-                logging().e(t) { "Thrown in `then()` process" }
+                logger.e(t, "Thrown in `then()` process")
                 emit(Resource.Failure(mapError(t)))
             }
 

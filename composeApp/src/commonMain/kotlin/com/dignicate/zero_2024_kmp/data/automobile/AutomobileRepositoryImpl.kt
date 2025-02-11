@@ -2,25 +2,26 @@ package com.dignicate.zero_2024_kmp.data.automobile
 
 import com.dignicate.zero_2024_kmp.domain.automobile.AutomobileRepository
 import com.dignicate.zero_2024_kmp.domain.automobile.Company
+import com.dignicate.zero_2024_kmp.util.logger
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import org.lighthousegames.logging.logging
 
 class AutomobileRepositoryImpl(
     private val apiClient: AutomobileApiClient,
 ) : AutomobileRepository {
     override fun getAutomobileCompanyList(limit: Int, page: Int): Flow<Result<List<Company>>> {
-        logging().d { "getAutomobileCompanyList()" }
+        logger.v("getAutomobileCompanyList()")
         return callbackFlow {
             try {
                 val dto = apiClient.getCompanyList(limit = limit, page = page)
                 trySend(Result.success(dto.map { it.toDomainObject() }))
             } catch (e: Exception) {
-                logging().e(e) { "Failed to get company list" }
+                logger.e(e, "Failed to get company list")
                 trySend(Result.failure(e))
             }
             awaitClose {
+                apiClient.close()
             }
         }
     }

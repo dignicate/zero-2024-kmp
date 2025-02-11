@@ -1,9 +1,9 @@
 package com.dignicate.zero_2024_kmp.data.sample
 
+import com.dignicate.zero_2024_kmp.util.logger
 import io.ktor.client.*
 import io.ktor.client.call.body
 import io.ktor.client.request.*
-import org.lighthousegames.logging.logging
 
 interface SampleApiClient {
     suspend fun getTodoData(): TodoDto
@@ -11,7 +11,7 @@ interface SampleApiClient {
 
 class ApiServiceKtorImpl(private val client: HttpClient) : SampleApiClient {
     override suspend fun getTodoData(): TodoDto {
-        logging().d { "getTodoData()" }
+        logger.d("getTodoData()")
         return client
             .get("https://jsonplaceholder.typicode.com/todos/1")
             .body()
