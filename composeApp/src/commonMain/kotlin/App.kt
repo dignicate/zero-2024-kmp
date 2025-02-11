@@ -12,8 +12,6 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.lighthousegames.logging.logging
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -64,7 +62,6 @@ fun App() {
 
 @Composable
 private fun Demo() {
-    logging(tag = "test").d { "Demo()" }
     // Project 作成時に元々存在していたものをこちらに移動
     var showContent by remember { mutableStateOf(false) }
     Column(
