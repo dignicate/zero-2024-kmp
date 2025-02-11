@@ -93,13 +93,11 @@ fun MyCustomTheme(
     CompositionLocalProvider(
         LocalExColors provides rememberedExColors,
     ) {
-
+        MaterialTheme(
+            colors = exColors.preset,
+            content = content
+        )
     }
-
-    MaterialTheme(
-        colors = exColors.preset,
-        content = content
-    )
 }
 
 object MyCustomTheme {

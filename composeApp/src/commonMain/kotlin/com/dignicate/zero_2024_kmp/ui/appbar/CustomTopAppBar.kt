@@ -1,6 +1,5 @@
 package com.dignicate.zero_2024_kmp.ui.appbar
 
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
@@ -14,8 +13,13 @@ fun CustomTopAppBar(
 ) {
     TopAppBar(
         modifier = modifier,
-        title = { Text(text) },
+        title = {
+            Text(
+                modifier = Modifier,
+                text = text,
+                color = MyCustomTheme.exColors.textMain,
+            )
+        },
         backgroundColor = MyCustomTheme.exColors.appBarBackground,
-        contentColor = MaterialTheme.colors.onPrimary,
     )
 }
