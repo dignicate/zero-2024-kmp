@@ -14,6 +14,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.lighthousegames.logging.logging
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.dignicate.zero_2024_kmp.ui.automobile.AutomobileCompanyListScreen
 
 import zero2024kmp.composeapp.generated.resources.Res
 import zero2024kmp.composeapp.generated.resources.compose_multiplatform
@@ -22,8 +23,12 @@ import zero2024kmp.composeapp.generated.resources.compose_multiplatform
 @Composable
 fun App() {
     MaterialTheme {
+        initLogger()
         initKoin()
-        Demo()
+//        Demo()
+        AutomobileCompanyListScreen(
+            modifier = Modifier,
+        )
     }
 }
 

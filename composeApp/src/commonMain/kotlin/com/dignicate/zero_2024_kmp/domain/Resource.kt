@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
+import org.lighthousegames.logging.logging
 
 sealed class Resource<out T: Any> {
     data object Initialized : Resource<Nothing>()
@@ -27,7 +28,7 @@ fun <S: Any, T: Any> MutableSharedFlow<S>.mapToResource(
         mapError,
     ).stateIn(
         scope = scope,
-        started = SharingStarted.WhileSubscribed(),
+        started = SharingStarted.Eagerly,
         initialValue = Resource.Initialized,
     )
 }
@@ -40,16 +41,23 @@ fun <S: Any, T: Any> MutableSharedFlow<S>.mapToResourceAsFlow(
     return flatMapMerge { param: S ->
         flow {
             emit(Resource.InProgress)
-            then(param).collect { result: Result<T> ->
-                result.fold(
-                    onSuccess = { data: T ->
-                        emit(Resource.Success(data))
-                    },
-                    onFailure = { throwable: Throwable ->
-                        emit(Resource.Failure(mapError(throwable)))
+            try {
+                then(param)
+                    .collect { result: Result<T> ->
+                        result.fold(
+                            onSuccess = { data: T ->
+                                emit(Resource.Success(data))
+                            },
+                            onFailure = { throwable: Throwable ->
+                                emit(Resource.Failure(mapError(throwable)))
+                            }
+                        )
                     }
-                )
+            } catch (t: Throwable) {
+                logging().e(t) { "Thrown in `then()` process" }
+                emit(Resource.Failure(mapError(t)))
             }
+
         }
     }
 }
