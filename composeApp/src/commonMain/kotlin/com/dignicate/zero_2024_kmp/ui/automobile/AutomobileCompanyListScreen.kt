@@ -1,15 +1,22 @@
 package com.dignicate.zero_2024_kmp.ui.automobile
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.dignicate.zero_2024_kmp.ui.appbar.CustomTopAppBar
+import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
 import org.koin.mp.KoinPlatform.getKoin
 
 @Composable
@@ -54,4 +61,32 @@ fun AutomobileCompanyListView(
             Text("Content goes here")
         },
     )
+}
+
+object AutomobileCompanyViews {
+    @Composable
+    fun ListItem(
+        modifier: Modifier,
+        companyName: String,
+        country: String,
+        foundedYear: Int,
+    ) {
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp)
+                .padding(horizontal = 8.dp)
+                .background(
+                    color = MyCustomTheme.exColors.preset.background
+                ),
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(text = companyName)
+                Text(text = country)
+                Text(text = foundedYear.toString())
+            }
+        }
+    }
 }
