@@ -2,10 +2,12 @@ package com.dignicate.zero_2024_kmp.ui.design
 
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Typography
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -15,6 +17,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 
 val LightColorPalette = lightColors(
 //    primary = Color(0xFFEEEEEE),
@@ -68,10 +73,19 @@ class ExColors(
     )
 }
 
+
 internal fun ExColors.updateColorsFrom(other: ExColors) {
     preset = other.preset
     appBarBackground = other.appBarBackground
     textMain = other.textMain
+}
+
+@Immutable
+class ExTypography internal constructor(
+    val presetz: Typography,
+    val itemMain: TextStyle,
+    val itemSub: TextStyle,
+) {
 }
 
 @Composable
