@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 
 val LightColorPalette = lightColors(
 //    primary = Color(0xFFEEEEEE),
@@ -73,7 +74,6 @@ class ExColors(
     )
 }
 
-
 internal fun ExColors.updateColorsFrom(other: ExColors) {
     preset = other.preset
     appBarBackground = other.appBarBackground
@@ -82,15 +82,31 @@ internal fun ExColors.updateColorsFrom(other: ExColors) {
 
 @Immutable
 class ExTypography internal constructor(
-    val presetz: Typography,
+    val preset: Typography,
     val itemMain: TextStyle,
     val itemSub: TextStyle,
 ) {
+    constructor() : this(
+        preset = Typography(),
+        itemMain = TextStyle(
+            fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.Normal,
+            fontSize = 16.sp,
+        ),
+        itemSub = TextStyle(
+            fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.Normal,
+            fontSize = 14.sp,
+        ),
+    )
 }
+
+internal val LocalExTypography = staticCompositionLocalOf { ExTypography() }
 
 @Composable
 fun MyCustomTheme(
     exColors: ExColors,
+    exTypography: ExTypography = ExTypography(),
     content: @Composable () -> Unit,
 ) {
 //    val colors = if (isSystemInDarkTheme()) {
@@ -106,9 +122,11 @@ fun MyCustomTheme(
     }.apply { updateColorsFrom(exColors) }
     CompositionLocalProvider(
         LocalExColors provides rememberedExColors,
+        LocalExTypography provides exTypography,
     ) {
         MaterialTheme(
             colors = exColors.preset,
+            typography = exTypography.preset,
             content = content
         )
     }
@@ -119,6 +137,12 @@ object MyCustomTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalExColors.current
+
+    val exTypography: ExTypography
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalExTypography.current
 }
 
 internal val LocalExColors = staticCompositionLocalOf { lightExColors() }
+

@@ -63,41 +63,40 @@ fun AutomobileCompanyListView(
     )
 }
 
-//@Composable
-//fun AutomobileCompanyListItemView(
-//    modifier: Modifier = Modifier,
-//    companyName: String,
-//    country: String,
-//    foundedYear: Int,
-//) {
-//    Box(
-//        modifier = modifier
-//            .fillMaxWidth()
-//            .padding(top = 4.dp)
-//            .padding(horizontal = 8.dp)
-//            .background(
-//                color = MyCustomTheme.exColors.preset.background
-//            ),
-//    ) {
-//        Column(
-//            modifier = Modifier.padding(16.dp)
-//        ) {
-//            Text(
-//                text = companyName,
-//                color = MyCustomTheme.exColors.textMain,
-//                style = MyCustomTheme.typography.h6
-//            )
-//            Text(
-//                text = country,
-//                color = MyCustomTheme.exColors.textMain,
-//                style = MaterialTheme.typography.body2
-//            )
-//            Text(
-//                text = foundedYear.toString(),
-//                color = MyCustomTheme.exColors.textMain,
-//                style = MaterialTheme.typography.body2
-//            )
-//        }
-//    }
-//}
-
+@Composable
+fun AutomobileCompanyListItemView(
+    modifier: Modifier = Modifier,
+    companyName: String,
+    country: String,
+    foundedYear: Int,
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = 4.dp)
+            .padding(horizontal = 8.dp)
+            .background(
+                color = MyCustomTheme.exColors.preset.background
+            ),
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                text = companyName,
+                color = MyCustomTheme.exColors.textMain,
+                style = MyCustomTheme.exTypography.itemMain,
+            )
+            Text(
+                text = country,
+                color = MyCustomTheme.exColors.textMain,
+                style = MyCustomTheme.exTypography.itemSub,
+            )
+            Text(
+                text = foundedYear.toString(),
+                color = MyCustomTheme.exColors.textMain,
+                style = MyCustomTheme.exTypography.itemSub,
+            )
+        }
+    }
+}
