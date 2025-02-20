@@ -46,3 +46,19 @@ private fun AutomobileCompanyViews_ListItem() {
         )
     }
 }
+
+@Preview
+@Composable
+private fun AutomobileCompanyListItemViewPreview() {
+    MyCustomTheme(
+        exColors = lightExColors(),
+    ) {
+        AutomobileCompanyListItemView(
+            modifier = Modifier,
+            companyName = "Sample Company",
+            country = "Sample Country",
+            foundedYear = 2024,
+        )
+    }
+}
+
