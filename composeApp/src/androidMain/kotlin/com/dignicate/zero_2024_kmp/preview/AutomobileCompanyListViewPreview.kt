@@ -32,32 +32,32 @@ private fun AutomobileCompanyListViewPreview_Dark() {
     }
 }
 
-//@Preview
-//@Composable
-//private fun AutomobileCompanyListItemViewPreview() {
-//    MyCustomTheme(
-//        exColors = lightExColors(),
-//    ) {
-//        AutomobileCompanyListItemView(
-//            modifier = Modifier,
-//            companyName = "Sample Company",
-//            country = "Sample Country",
-//            foundedYear = 2024,
-//        )
-//    }
-//}
+@Preview
+@Composable
+private fun AutomobileCompanyListItemViewPreview() {
+    MyCustomTheme(
+        exColors = lightExColors(),
+    ) {
+        AutomobileCompanyListItemView(
+            modifier = Modifier,
+            companyName = "Sample Company",
+            country = "Sample Country",
+            foundedYear = 2024,
+        )
+    }
+}
 
-//@Preview
-//@Composable
-//private fun AutomobileCompanyListItemViewPreview_Dark() {
-//    MyCustomTheme(
-//        exColors = darkExColors(),
-//    ) {
-//        AutomobileCompanyListItemView(
-//            modifier = Modifier,
-//            companyName = "Sample Company",
-//            country = "Sample Country",
-//            foundedYear = 2024,
-//        )
-//    }
-//}
+@Preview
+@Composable
+private fun AutomobileCompanyListItemViewPreview_Dark() {
+    MyCustomTheme(
+        exColors = darkExColors(),
+    ) {
+        AutomobileCompanyListItemView(
+            modifier = Modifier,
+            companyName = "Sample Company",
+            country = "Sample Country",
+            foundedYear = 2024,
+        )
+    }
+}
