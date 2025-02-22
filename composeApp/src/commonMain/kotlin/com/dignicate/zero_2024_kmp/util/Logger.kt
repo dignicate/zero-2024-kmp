@@ -4,10 +4,10 @@ import org.lighthousegames.logging.logging
 
 val logger: LogWrapper = Logger
 
-private object Logger : LogWrapper {
+private object Logger : LogWrapper, LogWrapper.Untagged {
     private val wrappers: MutableMap<String, TaggedLogWrapper> = mutableMapOf()
 
-    fun tag(tag: String): TaggedLogWrapper {
+    override fun tag(tag: String): LogWrapper {
         return wrapperWithTag(tag)
     }
 
@@ -42,6 +42,10 @@ interface LogWrapper {
     fun w(throwable: Throwable?, message: String)
     fun e(throwable: Throwable?, message: String)
     fun v(message: String)
+
+    interface Untagged {
+        fun tag(tag: String): LogWrapper
+    }
 }
 
 data class TaggedLogWrapper(val tag: String) : LogWrapper {
