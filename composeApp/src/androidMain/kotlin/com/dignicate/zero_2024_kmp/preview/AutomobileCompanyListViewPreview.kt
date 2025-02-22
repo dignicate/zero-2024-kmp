@@ -16,6 +16,7 @@ private fun AutomobileCompanyListViewPreview() {
     ) {
         AutomobileCompanyListView(
             modifier = Modifier,
+            data = listOf("Sample Company 1", "Sample Company 2", "Sample Company 3"),
         )
     }
 }
@@ -28,6 +29,7 @@ private fun AutomobileCompanyListViewPreview_Dark() {
     ) {
         AutomobileCompanyListView(
             modifier = Modifier,
+            data = listOf("Sample Company 1", "Sample Company 2", "Sample Company 3"),
         )
     }
 }
@@ -49,13 +51,13 @@ private fun AutomobileCompanyListItemViewPreview() {
 
 @Preview
 @Composable
-private fun AutomobileCompanyListItemViewPreview_LongText() {
+private fun AutomobileCompanyListItemViewPreview_Dark() {
     MyCustomTheme(
-        exColors = lightExColors(),
+        exColors = darkExColors(),
     ) {
         AutomobileCompanyListItemView(
             modifier = Modifier,
-            companyName = "Sample Company Very Very Very Long Long Name",
+            companyName = "Sample Company",
             country = "Sample Country",
             foundedYear = 2024,
         )
@@ -64,13 +66,13 @@ private fun AutomobileCompanyListItemViewPreview_LongText() {
 
 @Preview
 @Composable
-private fun AutomobileCompanyListItemViewPreview_Dark() {
+private fun AutomobileCompanyListItemViewPreview_LongText() {
     MyCustomTheme(
-        exColors = darkExColors(),
+        exColors = lightExColors(),
     ) {
         AutomobileCompanyListItemView(
             modifier = Modifier,
-            companyName = "Sample Company",
+            companyName = "Sample Company Very Very Very Long Long Name",
             country = "Sample Country",
             foundedYear = 2024,
         )

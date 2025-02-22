@@ -6,10 +6,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -42,14 +45,17 @@ fun AutomobileCompanyListScreen(
         }
     }
 
+    val uiState = viewModel.uiState.collectAsState()
     AutomobileCompanyListView(
         modifier = modifier,
+        data = uiState.value.data,
     )
 }
 
 @Composable
 fun AutomobileCompanyListView(
     modifier: Modifier,
+    data: List<String>,
 ) {
     Scaffold(
         modifier = modifier,
@@ -60,7 +66,17 @@ fun AutomobileCompanyListView(
             )
         },
         content = {
-            Text("Content goes here")
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth().padding(16.dp)
+            ) {
+                items(data) { companyName ->
+                    AutomobileCompanyListItemView(
+                        companyName = companyName,
+                        country = "Unknown",
+                        foundedYear = 0
+                    )
+                }
+            }
         },
     )
 }
@@ -102,7 +118,7 @@ fun AutomobileCompanyListItemView(
                     style = MyCustomTheme.exTypography.itemSub,
                 )
                 Text(
-                    text = foundedYear.toString(),
+                    text = "Since $foundedYear",
                     color = MyCustomTheme.exColors.textMain,
                     style = MyCustomTheme.exTypography.itemSub,
                 )
