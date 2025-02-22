@@ -1,6 +1,7 @@
 package com.dignicate.zero_2024_kmp.ui.automobile
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +10,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
@@ -76,27 +78,35 @@ fun AutomobileCompanyListItemView(
             .padding(top = 4.dp)
             .padding(horizontal = 8.dp)
             .background(
-                color = MyCustomTheme.exColors.preset.background
+                color = MyCustomTheme.exColors.preset.background,
             ),
     ) {
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
                 text = companyName,
                 color = MyCustomTheme.exColors.textMain,
                 style = MyCustomTheme.exTypography.itemMain,
             )
-            Text(
-                text = country,
-                color = MyCustomTheme.exColors.textMain,
-                style = MyCustomTheme.exTypography.itemSub,
-            )
-            Text(
-                text = foundedYear.toString(),
-                color = MyCustomTheme.exColors.textMain,
-                style = MyCustomTheme.exTypography.itemSub,
-            )
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.End,
+            ) {
+                Text(
+                    text = country,
+                    color = MyCustomTheme.exColors.textMain,
+                    style = MyCustomTheme.exTypography.itemSub,
+                )
+                Text(
+                    text = foundedYear.toString(),
+                    color = MyCustomTheme.exColors.textMain,
+                    style = MyCustomTheme.exTypography.itemSub,
+                )
+            }
         }
     }
 }

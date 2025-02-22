@@ -49,6 +49,21 @@ private fun AutomobileCompanyListItemViewPreview() {
 
 @Preview
 @Composable
+private fun AutomobileCompanyListItemViewPreview_LongText() {
+    MyCustomTheme(
+        exColors = lightExColors(),
+    ) {
+        AutomobileCompanyListItemView(
+            modifier = Modifier,
+            companyName = "Sample Company Very Very Very Long Long Name",
+            country = "Sample Country",
+            foundedYear = 2024,
+        )
+    }
+}
+
+@Preview
+@Composable
 private fun AutomobileCompanyListItemViewPreview_Dark() {
     MyCustomTheme(
         exColors = darkExColors(),

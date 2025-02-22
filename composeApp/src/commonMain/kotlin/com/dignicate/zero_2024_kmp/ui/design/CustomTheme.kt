@@ -38,19 +38,23 @@ val DarkColorPalette = darkColors(
 fun lightExColors(
     appBarBackground: Color = Color(0xFFEEEEEE),
     textMain: Color = Color(0xFF121212),
+    textSub: Color = Color(0xFF666666),
 ): ExColors = ExColors(
     preset = LightColorPalette,
     appBarBackground = appBarBackground,
     textMain = textMain,
+    textSub = textSub,
 )
 
 fun darkExColors(
     appBarBackground: Color = Color(0xFF121212),
     textMain: Color = Color(0xFFEEEEEE),
+    textSub : Color = Color(0xFFAAAAAA),
 ): ExColors = ExColors(
     preset = DarkColorPalette,
     appBarBackground = appBarBackground,
     textMain = textMain,
+    textSub = textSub,
 )
 
 @Stable
@@ -58,19 +62,24 @@ class ExColors(
     var preset: Colors,
     appBarBackground: Color,
     textMain: Color,
+    textSub: Color,
 ) {
     var appBarBackground by mutableStateOf(appBarBackground, structuralEqualityPolicy())
         internal set
     var textMain by mutableStateOf(textMain, structuralEqualityPolicy())
         internal set
+    var textSub by mutableStateOf(textSub, structuralEqualityPolicy())
+        internal set
 
     fun copy(
         appBarBackground: Color = this.appBarBackground,
         textMain: Color = this.textMain,
+        textSub: Color = this.textSub,
     ): ExColors = ExColors(
         preset = preset,
         appBarBackground = appBarBackground,
         textMain = textMain,
+        textSub = textSub,
     )
 }
 
@@ -90,7 +99,7 @@ class ExTypography internal constructor(
         preset = Typography(),
         itemMain = TextStyle(
             fontFamily = FontFamily.Default,
-            fontWeight = FontWeight.Normal,
+            fontWeight = FontWeight.SemiBold,
             fontSize = 16.sp,
         ),
         itemSub = TextStyle(
