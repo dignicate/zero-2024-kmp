@@ -1,41 +1,48 @@
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.lightColors
 import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Alignment
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.lighthousegames.logging.logging
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.dignicate.zero_2024_kmp.ui.automobile.AutomobileCompanyListScreen
-
+import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
+import com.dignicate.zero_2024_kmp.ui.design.darkExColors
+import com.dignicate.zero_2024_kmp.ui.design.lightExColors
 import zero2024kmp.composeapp.generated.resources.Res
 import zero2024kmp.composeapp.generated.resources.compose_multiplatform
 
-@OptIn(ExperimentalResourceApi::class)
+
 @Composable
 fun App() {
-    MaterialTheme {
-        initLogger()
-        initKoin()
-//        Demo()
+    initLogger()
+    initKoin()
+
+    val exColors = if (isSystemInDarkTheme()) {
+        darkExColors()
+    } else {
+        lightExColors()
+    }
+
+    MyCustomTheme(
+        exColors = exColors,
+    ) {
         AutomobileCompanyListScreen(
             modifier = Modifier,
         )
     }
 }
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun Demo() {
-    logging(tag = "test").d { "Demo()" }
     // Project 作成時に元々存在していたものをこちらに移動
     var showContent by remember { mutableStateOf(false) }
     Column(
@@ -58,10 +65,4 @@ private fun Demo() {
             }
         }
     }
-}
-
-@Preview
-@Composable
-private fun DemoPreview() {
-    Demo()
 }
