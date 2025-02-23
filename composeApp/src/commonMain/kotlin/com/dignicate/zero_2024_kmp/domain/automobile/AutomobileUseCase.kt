@@ -20,7 +20,6 @@ class AutomobileUseCase(
 
     val data: StateFlow<ResourceWithCursor<List<Company>, Int>> =
         fetchTrigger
-            .debounce(300)
             .mapToResource(
                 scope = scope,
                 then = {
@@ -40,7 +39,10 @@ class AutomobileUseCase(
             )
 
     suspend fun fetch(limit: Int, cursor: Cursor<Int>) {
-        logger.v("fetch(limit = $limit, cursor = $cursor)")
+        logger.d("fetch(limit = $limit, cursor = $cursor)")
+        if (cursor == Cursor.End) {
+            return
+        }
         fetchTrigger.emit(
             ParamWithCursor(
                 cursor = cursor,

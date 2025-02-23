@@ -47,6 +47,9 @@ class AutomobileCompanyListViewModel(
         if (uiState.isLoading) {
             return
         }
+        if (uiState.nextCursor == Cursor.End) {
+            return
+        }
         viewModelScope.launch {
             useCase.fetch(limit = limit, cursor = uiState.nextCursor)
         }
