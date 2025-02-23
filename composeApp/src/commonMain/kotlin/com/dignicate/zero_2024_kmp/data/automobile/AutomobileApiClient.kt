@@ -24,4 +24,3 @@ class AutomobileApiClientImpl(private val client: HttpClient) : AutomobileApiCli
         client.close()
     }
 }
-

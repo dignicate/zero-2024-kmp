@@ -4,12 +4,21 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -17,8 +26,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import com.dignicate.zero_2024_kmp.domain.Cursor
+import com.dignicate.zero_2024_kmp.domain.automobile.Company
 import com.dignicate.zero_2024_kmp.ui.appbar.CustomTopAppBar
 import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
+import com.dignicate.zero_2024_kmp.util.logger
 import org.koin.mp.KoinPlatform.getKoin
 
 @Composable
@@ -42,14 +54,30 @@ fun AutomobileCompanyListScreen(
         }
     }
 
+    val uiState = viewModel.uiState.collectAsState()
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(listState) {
+        snapshotFlow { listState.layoutInfo.visibleItemsInfo }
+            .collect { visibleItems ->
+                if (visibleItems.isNotEmpty() && visibleItems.last().index == uiState.value.data.size - 1) {
+                    viewModel.onScrollEnd()
+                }
+            }
+    }
+
     AutomobileCompanyListView(
-        modifier = modifier,
+        modifier = modifier.safeDrawingPadding(),
+        data = uiState.value.data,
+        listState = listState,
     )
 }
 
 @Composable
 fun AutomobileCompanyListView(
     modifier: Modifier,
+    data: List<Company>,
+    listState: LazyListState,
 ) {
     Scaffold(
         modifier = modifier,
@@ -60,7 +88,20 @@ fun AutomobileCompanyListView(
             )
         },
         content = {
-            Text("Content goes here")
+            LazyColumn(
+                state = listState,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+                items(data) { company ->
+                    AutomobileCompanyListItemView(
+                        companyName = company.name,
+                        country = company.country,
+                        foundedYear = company.foundedYear,
+                    )
+                }
+            }
         },
     )
 }
@@ -102,7 +143,7 @@ fun AutomobileCompanyListItemView(
                     style = MyCustomTheme.exTypography.itemSub,
                 )
                 Text(
-                    text = foundedYear.toString(),
+                    text = "Since $foundedYear",
                     color = MyCustomTheme.exColors.textMain,
                     style = MyCustomTheme.exTypography.itemSub,
                 )
