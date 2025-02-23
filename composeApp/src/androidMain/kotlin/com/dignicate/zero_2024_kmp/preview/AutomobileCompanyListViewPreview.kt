@@ -1,5 +1,6 @@
 package com.dignicate.zero_2024_kmp.preview
 
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,6 +25,7 @@ private fun AutomobileCompanyListViewPreview() {
         AutomobileCompanyListView(
             modifier = Modifier,
             data = mockCompanyData,
+            listState = rememberLazyListState(),
         )
     }
 }
@@ -37,6 +39,7 @@ private fun AutomobileCompanyListViewPreview_Dark() {
         AutomobileCompanyListView(
             modifier = Modifier,
             data = mockCompanyData,
+            listState = rememberLazyListState(),
         )
     }
 }

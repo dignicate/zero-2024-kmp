@@ -5,6 +5,7 @@ import com.dignicate.zero_2024_kmp.domain.automobile.AutomobileRepository
 import com.dignicate.zero_2024_kmp.domain.automobile.Company
 import com.dignicate.zero_2024_kmp.util.logger
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
@@ -16,15 +17,16 @@ class AutomobileRepositoryImpl(
         return callbackFlow {
             try {
                 val page = when (cursor) {
-                    Cursor.End -> {
-                        trySend(Result.success(emptyList()))
-                        return@callbackFlow
-                    }
+                    Cursor.End -> null
                     Cursor.First -> 1
                     is Cursor.Next -> cursor.value
                 }
-                val dto = apiClient.getCompanyList(limit = limit, page = page)
-                trySend(Result.success(dto.map { it.toDomainObject() }))
+                if (page == null) {
+                    trySend(Result.success(emptyList()))
+                } else {
+                    val dto = apiClient.getCompanyList(limit = limit, page = page)
+                    trySend(Result.success(dto.map { it.toDomainObject() }))
+                }
             } catch (e: Exception) {
                 logger.e(e, "Failed to get company list")
                 trySend(Result.failure(e))

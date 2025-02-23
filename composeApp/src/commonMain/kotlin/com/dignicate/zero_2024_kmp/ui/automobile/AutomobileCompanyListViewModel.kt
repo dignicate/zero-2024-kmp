@@ -24,6 +24,8 @@ class AutomobileCompanyListViewModel(
 
     val uiState = _uiState.asStateFlow()
 
+    private val limit = 10
+
     fun onCreate() {
         logger.d("onCreate()")
         viewModelScope.launch {
@@ -36,7 +38,17 @@ class AutomobileCompanyListViewModel(
     fun onResume() {
         logger.d("onResume()")
         viewModelScope.launch {
-            useCase.fetch(limit = 10, cursor = Cursor.First)
+            useCase.fetch(limit = limit, cursor = Cursor.First)
+        }
+    }
+
+    fun onScrollEnd() {
+        val uiState = _uiState.value
+        if (uiState.isLoading) {
+            return
+        }
+        viewModelScope.launch {
+            useCase.fetch(limit = limit, cursor = uiState.nextCursor)
         }
     }
 
@@ -44,7 +56,6 @@ class AutomobileCompanyListViewModel(
         viewModelScope.launch {
             useCase.data.collect { resourceWithParam ->
                 val resource = resourceWithParam.resource
-                val cursor = resourceWithParam.currentCursor
                 when (resource) {
                     is Resource.Initialized -> {
                         // nothing.
@@ -53,8 +64,9 @@ class AutomobileCompanyListViewModel(
                         _uiState.value = _uiState.value.inProgress()
                     }
                     is Resource.Success -> {
+                        val nextCursor = resourceWithParam.nextCursor ?: Cursor.End
                         _uiState.value = _uiState.value.success(
-                            cursor = cursor,
+                            nextCursor = nextCursor,
                             data = resource.data,
                         )
                     }
@@ -68,15 +80,18 @@ class AutomobileCompanyListViewModel(
 
     data class UiState(
         val isLoading: Boolean = false,
-        val cursor: Cursor<Int> = Cursor.First,
+        val nextCursor: Cursor<Int> = Cursor.First,
         val data: List<Company> = emptyList(),
     ) {
 
-        fun success(cursor: Cursor<Int>, data: List<Company>): UiState {
+        fun success(
+            nextCursor: Cursor<Int>,
+            data: List<Company>
+        ): UiState {
             return copy(
                 isLoading = false,
-                cursor = cursor,
-                data = data
+                nextCursor = nextCursor,
+                data = this.data + data,
             )
         }
 
