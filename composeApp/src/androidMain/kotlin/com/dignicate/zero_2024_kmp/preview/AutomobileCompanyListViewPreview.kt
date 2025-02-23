@@ -7,6 +7,13 @@ import com.dignicate.zero_2024_kmp.ui.automobile.*
 import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
 import com.dignicate.zero_2024_kmp.ui.design.darkExColors
 import com.dignicate.zero_2024_kmp.ui.design.lightExColors
+import com.dignicate.zero_2024_kmp.domain.automobile.Company
+
+private val mockCompanyData = listOf(
+    Company(id = Company.Id(1), name = "Sample Company 1", country = "Country 1", foundedYear = 2001),
+    Company(id = Company.Id(2), name = "Sample Company 2", country = "Country 2", foundedYear = 2002),
+    Company(id = Company.Id(3), name = "Sample Company 3", country = "Country 3", foundedYear = 2003)
+)
 
 @Preview
 @Composable
@@ -16,7 +23,7 @@ private fun AutomobileCompanyListViewPreview() {
     ) {
         AutomobileCompanyListView(
             modifier = Modifier,
-            data = listOf("Sample Company 1", "Sample Company 2", "Sample Company 3"),
+            data = mockCompanyData,
         )
     }
 }
@@ -29,7 +36,7 @@ private fun AutomobileCompanyListViewPreview_Dark() {
     ) {
         AutomobileCompanyListView(
             modifier = Modifier,
-            data = listOf("Sample Company 1", "Sample Company 2", "Sample Company 3"),
+            data = mockCompanyData,
         )
     }
 }

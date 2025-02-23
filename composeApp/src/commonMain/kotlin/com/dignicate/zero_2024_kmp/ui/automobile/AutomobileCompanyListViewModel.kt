@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.dignicate.zero_2024_kmp.domain.Error
 import com.dignicate.zero_2024_kmp.domain.Resource
 import com.dignicate.zero_2024_kmp.domain.automobile.AutomobileUseCase
+import com.dignicate.zero_2024_kmp.domain.automobile.Company
 import com.dignicate.zero_2024_kmp.util.logger
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -50,7 +51,7 @@ class AutomobileCompanyListViewModel(
                     }
                     is Resource.Success -> {
                         _uiState.value = _uiState.value.success(
-                            data = resource.data.map { it.name },
+                            data = resource.data,
                         )
                     }
                     is Resource.Failure -> {
@@ -63,10 +64,10 @@ class AutomobileCompanyListViewModel(
 
     data class UiState(
         val isLoading: Boolean,
-        val data: List<String>,
+        val data: List<Company>,
     ) {
 
-        fun success(data: List<String>): UiState {
+        fun success(data: List<Company>): UiState {
             return copy(
                 isLoading = false,
                 data = data

@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import com.dignicate.zero_2024_kmp.domain.automobile.Company
 import com.dignicate.zero_2024_kmp.ui.appbar.CustomTopAppBar
 import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
 import org.koin.mp.KoinPlatform.getKoin
@@ -55,7 +56,7 @@ fun AutomobileCompanyListScreen(
 @Composable
 fun AutomobileCompanyListView(
     modifier: Modifier,
-    data: List<String>,
+    data: List<Company>,
 ) {
     Scaffold(
         modifier = modifier,
@@ -71,11 +72,11 @@ fun AutomobileCompanyListView(
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                items(data) { companyName ->
+                items(data) { company ->
                     AutomobileCompanyListItemView(
-                        companyName = companyName,
-                        country = "Unknown",
-                        foundedYear = 0
+                        companyName = company.name,
+                        country = company.country,
+                        foundedYear = company.foundedYear,
                     )
                 }
             }
