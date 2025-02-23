@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
@@ -50,7 +50,7 @@ fun AutomobileCompanyListScreen(
 
     val uiState = viewModel.uiState.collectAsState()
     AutomobileCompanyListView(
-        modifier = modifier,
+        modifier = modifier.safeDrawingPadding(),
         data = uiState.value.data,
     )
 }
