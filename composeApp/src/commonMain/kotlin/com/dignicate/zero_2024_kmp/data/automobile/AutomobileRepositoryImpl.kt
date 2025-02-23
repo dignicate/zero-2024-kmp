@@ -1,5 +1,6 @@
 package com.dignicate.zero_2024_kmp.data.automobile
 
+import com.dignicate.zero_2024_kmp.domain.Cursor
 import com.dignicate.zero_2024_kmp.domain.automobile.AutomobileRepository
 import com.dignicate.zero_2024_kmp.domain.automobile.Company
 import com.dignicate.zero_2024_kmp.util.logger
@@ -10,10 +11,18 @@ import kotlinx.coroutines.flow.callbackFlow
 class AutomobileRepositoryImpl(
     private val apiClient: AutomobileApiClient,
 ) : AutomobileRepository {
-    override fun getAutomobileCompanyList(limit: Int, page: Int): Flow<Result<List<Company>>> {
+    override fun getAutomobileCompanyList(limit: Int, cursor: Cursor<Int>): Flow<Result<List<Company>>> {
         logger.v("getAutomobileCompanyList()")
         return callbackFlow {
             try {
+                val page = when (cursor) {
+                    Cursor.End -> {
+                        trySend(Result.success(emptyList()))
+                        return@callbackFlow
+                    }
+                    Cursor.First -> 1
+                    is Cursor.Next -> cursor.value
+                }
                 val dto = apiClient.getCompanyList(limit = limit, page = page)
                 trySend(Result.success(dto.map { it.toDomainObject() }))
             } catch (e: Exception) {

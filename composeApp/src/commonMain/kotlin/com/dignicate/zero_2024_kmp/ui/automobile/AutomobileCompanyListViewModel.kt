@@ -2,6 +2,7 @@ package com.dignicate.zero_2024_kmp.ui.automobile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dignicate.zero_2024_kmp.domain.Cursor
 import com.dignicate.zero_2024_kmp.domain.Error
 import com.dignicate.zero_2024_kmp.domain.Resource
 import com.dignicate.zero_2024_kmp.domain.automobile.AutomobileUseCase
@@ -19,7 +20,7 @@ class AutomobileCompanyListViewModel(
         setupBinding()
     }
 
-    private val _uiState = MutableStateFlow(UiState(isLoading = false, data = emptyList()))
+    private val _uiState = MutableStateFlow(UiState())
 
     val uiState = _uiState.asStateFlow()
 
@@ -35,13 +36,15 @@ class AutomobileCompanyListViewModel(
     fun onResume() {
         logger.d("onResume()")
         viewModelScope.launch {
-            useCase.fetch(limit = 10, page = 1)
+            useCase.fetch(limit = 10, cursor = Cursor.First)
         }
     }
 
     private fun setupBinding() {
         viewModelScope.launch {
-            useCase.data.collect { resource ->
+            useCase.data.collect { resourceWithParam ->
+                val resource = resourceWithParam.resource
+                val cursor = resourceWithParam.cursor
                 when (resource) {
                     is Resource.Initialized -> {
                         // nothing.
@@ -51,6 +54,7 @@ class AutomobileCompanyListViewModel(
                     }
                     is Resource.Success -> {
                         _uiState.value = _uiState.value.success(
+                            cursor = cursor,
                             data = resource.data,
                         )
                     }
@@ -63,13 +67,15 @@ class AutomobileCompanyListViewModel(
     }
 
     data class UiState(
-        val isLoading: Boolean,
-        val data: List<Company>,
+        val isLoading: Boolean = false,
+        val cursor: Cursor<Int> = Cursor.First,
+        val data: List<Company> = emptyList(),
     ) {
 
-        fun success(data: List<Company>): UiState {
+        fun success(cursor: Cursor<Int>, data: List<Company>): UiState {
             return copy(
                 isLoading = false,
+                cursor = cursor,
                 data = data
             )
         }

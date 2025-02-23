@@ -95,8 +95,8 @@ sealed class Error {
 @OptIn(ExperimentalCoroutinesApi::class)
 fun <S : Any, T : Any, U : Any> MutableSharedFlow<ParamWithCursor<S, U>>.mapToResourceFlow(
     then: (ParamWithCursor<S, U>) -> Flow<Result<T>>,
-    nextCursor: (T) -> Cursor<U>,
-    onSuccess: (T) -> T = { it },
+    nextCursor: (S, T, Cursor<U>) -> Cursor<U>,
+    onSuccess: (S, T, Cursor<U>) -> T = { _, data, _ -> data },
     mapError: ((Throwable) -> Error)? = null,
 ): Flow<ResourceWithCursor<T, U>> {
     return flatMapMerge { param: ParamWithCursor<S, U> ->
@@ -112,8 +112,8 @@ fun <S : Any, T : Any, U : Any> MutableSharedFlow<ParamWithCursor<S, U>>.mapToRe
                     onSuccess = { data: T ->
                         emit(
                             ResourceWithCursor(
-                                cursor = nextCursor(data),
-                                resource = Resource.Success(onSuccess(data))
+                                cursor = nextCursor(param.param, data, param.cursor),
+                                resource = Resource.Success(onSuccess(param.param, data, param.cursor)),
                             )
                         )
                     },
@@ -136,8 +136,8 @@ fun <S : Any, T : Any, U : Any> MutableSharedFlow<ParamWithCursor<S, U>>.mapToRe
 fun <S : Any, T : Any, U : Any> MutableSharedFlow<ParamWithCursor<S, U>>.mapToResource(
     scope: CoroutineScope,
     then: (ParamWithCursor<S, U>) -> Flow<Result<T>>,
-    nextCursor: (T) -> Cursor<U>,
-    onSuccess: (T) -> T = { it },
+    nextCursor: (S, T, Cursor<U>) -> Cursor<U>,
+    onSuccess: (S, T, Cursor<U>) -> T = { _, data, _ -> data },
     mapError: ((Throwable) -> Error)? = null,
 ): StateFlow<ResourceWithCursor<T, U>> {
     return mapToResourceFlow(
