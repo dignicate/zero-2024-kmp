@@ -39,22 +39,26 @@ fun lightExColors(
     appBarBackground: Color = Color(0xFFEEEEEE),
     textMain: Color = Color(0xFF121212),
     textSub: Color = Color(0xFF666666),
+    indicator: Color = Color(0xFF666666),
 ): ExColors = ExColors(
     preset = LightColorPalette,
     appBarBackground = appBarBackground,
     textMain = textMain,
     textSub = textSub,
+    indicator = indicator,
 )
 
 fun darkExColors(
     appBarBackground: Color = Color(0xFF121212),
     textMain: Color = Color(0xFFEEEEEE),
     textSub : Color = Color(0xFFAAAAAA),
+    indicator: Color = Color(0xFFAAAAAA),
 ): ExColors = ExColors(
     preset = DarkColorPalette,
     appBarBackground = appBarBackground,
     textMain = textMain,
     textSub = textSub,
+    indicator = indicator,
 )
 
 @Stable
@@ -63,6 +67,7 @@ class ExColors(
     appBarBackground: Color,
     textMain: Color,
     textSub: Color,
+    indicator: Color,
 ) {
     var appBarBackground by mutableStateOf(appBarBackground, structuralEqualityPolicy())
         internal set
@@ -70,16 +75,20 @@ class ExColors(
         internal set
     var textSub by mutableStateOf(textSub, structuralEqualityPolicy())
         internal set
+    var indicator by mutableStateOf(indicator, structuralEqualityPolicy())
+        internal set
 
     fun copy(
         appBarBackground: Color = this.appBarBackground,
         textMain: Color = this.textMain,
         textSub: Color = this.textSub,
+        indicator: Color = this.indicator,
     ): ExColors = ExColors(
         preset = preset,
         appBarBackground = appBarBackground,
         textMain = textMain,
         textSub = textSub,
+        indicator = indicator,
     )
 }
 
@@ -118,14 +127,6 @@ fun MyCustomTheme(
     exTypography: ExTypography = ExTypography(),
     content: @Composable () -> Unit,
 ) {
-//    val colors = if (isSystemInDarkTheme()) {
-//        logger.d("DarkColorPalette")
-//        DarkColorPalette
-//    } else {
-//        logger.d("LightColorPalette")
-//        LightColorPalette
-//    }
-
     val rememberedExColors = remember {
         exColors.copy()
     }.apply { updateColorsFrom(exColors) }

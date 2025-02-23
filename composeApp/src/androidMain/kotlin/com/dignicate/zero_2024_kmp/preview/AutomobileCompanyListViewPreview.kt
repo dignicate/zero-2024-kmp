@@ -46,6 +46,21 @@ private fun AutomobileCompanyListViewPreview_Dark() {
 
 @Preview
 @Composable
+private fun AutomobileCompanyListViewPreview_Loading() {
+    MyCustomTheme(
+        exColors = lightExColors(),
+    ) {
+        AutomobileCompanyListView(
+            modifier = Modifier,
+            data = mockCompanyData,
+            isLoading = true,
+            listState = rememberLazyListState(),
+        )
+    }
+}
+
+@Preview
+@Composable
 private fun AutomobileCompanyListItemViewPreview() {
     MyCustomTheme(
         exColors = lightExColors(),

@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -23,14 +24,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.dignicate.zero_2024_kmp.domain.Cursor
 import com.dignicate.zero_2024_kmp.domain.automobile.Company
 import com.dignicate.zero_2024_kmp.ui.appbar.CustomTopAppBar
 import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
-import com.dignicate.zero_2024_kmp.util.logger
 import org.koin.mp.KoinPlatform.getKoin
 
 @Composable
@@ -77,6 +77,7 @@ fun AutomobileCompanyListScreen(
 fun AutomobileCompanyListView(
     modifier: Modifier,
     data: List<Company>,
+    isLoading: Boolean = false,
     listState: LazyListState,
 ) {
     Scaffold(
@@ -88,18 +89,34 @@ fun AutomobileCompanyListView(
             )
         },
         content = {
-            LazyColumn(
-                state = listState,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp)
+            Box(
+                modifier = Modifier.fillMaxSize()
             ) {
-                items(data) { company ->
-                    AutomobileCompanyListItemView(
-                        companyName = company.name,
-                        country = company.country,
-                        foundedYear = company.foundedYear,
-                    )
+                LazyColumn(
+                    state = listState,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
+                ) {
+                    items(data) { company ->
+                        AutomobileCompanyListItemView(
+                            companyName = company.name,
+                            country = company.country,
+                            foundedYear = company.foundedYear,
+                        )
+                    }
+                }
+                if (isLoading) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(color = Color.Transparent)
+                            .align(Alignment.Center)
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
                 }
             }
         },
