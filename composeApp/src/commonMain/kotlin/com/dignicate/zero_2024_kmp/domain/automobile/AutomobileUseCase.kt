@@ -9,15 +9,18 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.debounce
 
 class AutomobileUseCase(
     private val repository: AutomobileRepository,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
 ) {
-    private val fetchTrigger = MutableSharedFlow<ParamWithCursor<FetchParams, Int>>()
+    private val fetchTrigger =
+        MutableSharedFlow<ParamWithCursor<FetchParams, Int>>()
 
     val data: StateFlow<ResourceWithCursor<List<Company>, Int>> =
         fetchTrigger
+            .debounce(300)
             .mapToResource(
                 scope = scope,
                 then = {

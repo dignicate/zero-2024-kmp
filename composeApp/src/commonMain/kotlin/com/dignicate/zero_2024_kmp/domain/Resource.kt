@@ -94,7 +94,7 @@ sealed class Error {
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
-fun <S : Any, T : Any, U : Any> MutableSharedFlow<ParamWithCursor<S, U>>.mapToResourceFlow(
+fun <S : Any, T : Any, U : Any> Flow<ParamWithCursor<S, U>>.mapToResourceFlow(
     then: (ParamWithCursor<S, U>) -> Flow<Result<T>>,
     nextCursor: (S, T, Cursor<U>) -> Cursor<U>,
     onSuccess: (S, T, Cursor<U>) -> T = { _, data, _ -> data },
@@ -137,7 +137,7 @@ fun <S : Any, T : Any, U : Any> MutableSharedFlow<ParamWithCursor<S, U>>.mapToRe
     }
 }
 
-fun <S : Any, T : Any, U : Any> MutableSharedFlow<ParamWithCursor<S, U>>.mapToResource(
+fun <S : Any, T : Any, U : Any> Flow<ParamWithCursor<S, U>>.mapToResource(
     scope: CoroutineScope,
     then: (ParamWithCursor<S, U>) -> Flow<Result<T>>,
     nextCursor: (S, T, Cursor<U>) -> Cursor<U>,

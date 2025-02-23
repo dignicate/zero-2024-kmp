@@ -5,7 +5,6 @@ import com.dignicate.zero_2024_kmp.domain.automobile.AutomobileRepository
 import com.dignicate.zero_2024_kmp.domain.automobile.Company
 import com.dignicate.zero_2024_kmp.util.logger
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
