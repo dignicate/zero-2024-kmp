@@ -67,7 +67,9 @@ fun AutomobileCompanyListView(
         },
         content = {
             LazyColumn(
-                modifier = Modifier.fillMaxWidth().padding(16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
             ) {
                 items(data) { companyName ->
                     AutomobileCompanyListItemView(
