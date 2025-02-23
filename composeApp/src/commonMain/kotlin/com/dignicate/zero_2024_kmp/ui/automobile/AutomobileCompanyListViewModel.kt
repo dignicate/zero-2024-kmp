@@ -44,7 +44,7 @@ class AutomobileCompanyListViewModel(
         viewModelScope.launch {
             useCase.data.collect { resourceWithParam ->
                 val resource = resourceWithParam.resource
-                val cursor = resourceWithParam.cursor
+                val cursor = resourceWithParam.currentCursor
                 when (resource) {
                     is Resource.Initialized -> {
                         // nothing.

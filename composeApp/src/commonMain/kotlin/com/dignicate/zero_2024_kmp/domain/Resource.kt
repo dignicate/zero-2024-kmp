@@ -35,7 +35,8 @@ sealed interface Cursor<out T : Any> {
 }
 
 data class ResourceWithCursor<out R : Any, out C : Any>(
-    val cursor: Cursor<C>,
+    val currentCursor: Cursor<C>,
+    val nextCursor: Cursor<C>?,
     val resource: Resource<R>,
 )
 
@@ -103,7 +104,8 @@ fun <S : Any, T : Any, U : Any> MutableSharedFlow<ParamWithCursor<S, U>>.mapToRe
         flow {
             emit(
                 ResourceWithCursor(
-                    cursor = param.cursor,
+                    currentCursor = param.cursor,
+                    nextCursor = null,
                     resource = Resource.InProgress
                 )
             )
@@ -112,7 +114,8 @@ fun <S : Any, T : Any, U : Any> MutableSharedFlow<ParamWithCursor<S, U>>.mapToRe
                     onSuccess = { data: T ->
                         emit(
                             ResourceWithCursor(
-                                cursor = nextCursor(param.param, data, param.cursor),
+                                currentCursor = param.cursor,
+                                nextCursor = nextCursor(param.param, data, param.cursor),
                                 resource = Resource.Success(onSuccess(param.param, data, param.cursor)),
                             )
                         )
@@ -122,7 +125,8 @@ fun <S : Any, T : Any, U : Any> MutableSharedFlow<ParamWithCursor<S, U>>.mapToRe
                         val error = mapError?.invoke(exception) ?: Error.Unknown(exception)
                         emit(
                             ResourceWithCursor(
-                                cursor = param.cursor,
+                                currentCursor = param.cursor,
+                                nextCursor = null,
                                 resource = Resource.Failure(error),
                             )
                         )
@@ -149,7 +153,7 @@ fun <S : Any, T : Any, U : Any> MutableSharedFlow<ParamWithCursor<S, U>>.mapToRe
         .stateIn(
             scope = scope,
             started = SharingStarted.WhileSubscribed(),
-            initialValue = ResourceWithCursor(Cursor.First, Resource.Initialized),
+            initialValue = ResourceWithCursor(Cursor.First, null, Resource.Initialized),
         )
 }
 
