@@ -14,8 +14,11 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -32,8 +35,10 @@ import androidx.lifecycle.LifecycleOwner
 import com.dignicate.zero_2024_kmp.domain.automobile.Company
 import com.dignicate.zero_2024_kmp.ui.appbar.CustomTopAppBar
 import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
+import com.dignicate.zero_2024_kmp.util.logger
 import org.koin.mp.KoinPlatform.getKoin
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AutomobileCompanyListScreen(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
@@ -57,6 +62,7 @@ fun AutomobileCompanyListScreen(
 
     val uiState = viewModel.uiState.collectAsState()
     val listState = rememberLazyListState()
+    val pullToRefreshState = rememberPullToRefreshState()
 
     LaunchedEffect(listState) {
         snapshotFlow { listState.layoutInfo.visibleItemsInfo }
@@ -67,12 +73,21 @@ fun AutomobileCompanyListScreen(
             }
     }
 
-    AutomobileCompanyListView(
+    PullToRefreshBox(
         modifier = modifier.safeDrawingPadding(),
-        data = uiState.value.data,
-        isLoading = uiState.value.isLoading,
-        listState = listState,
-    )
+        onRefresh = {
+            logger.d("onRefresh()")
+        },
+        isRefreshing = uiState.value.isLoading,
+        state = pullToRefreshState,
+    ) {
+        AutomobileCompanyListView(
+            modifier = Modifier,
+            data = uiState.value.data,
+            isLoading = uiState.value.isLoading,
+            listState = listState,
+        )
+    }
 }
 
 @Composable
