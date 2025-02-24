@@ -4,18 +4,25 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -26,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -34,6 +42,7 @@ import com.dignicate.zero_2024_kmp.ui.appbar.CustomTopAppBar
 import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
 import org.koin.mp.KoinPlatform.getKoin
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AutomobileCompanyListScreen(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
@@ -57,6 +66,7 @@ fun AutomobileCompanyListScreen(
 
     val uiState = viewModel.uiState.collectAsState()
     val listState = rememberLazyListState()
+    val pullToRefreshState = rememberPullToRefreshState()
 
     LaunchedEffect(listState) {
         snapshotFlow { listState.layoutInfo.visibleItemsInfo }
@@ -67,12 +77,21 @@ fun AutomobileCompanyListScreen(
             }
     }
 
-    AutomobileCompanyListView(
+    PullToRefreshBox(
         modifier = modifier.safeDrawingPadding(),
-        data = uiState.value.data,
-        isLoading = uiState.value.isLoading,
-        listState = listState,
-    )
+        onRefresh = {
+            viewModel.onRefresh()
+        },
+        isRefreshing = uiState.value.isRefreshing,
+        state = pullToRefreshState,
+    ) {
+        AutomobileCompanyListView(
+            modifier = Modifier,
+            data = uiState.value.data,
+            isLoading = uiState.value.isLoading,
+            listState = listState,
+        )
+    }
 }
 
 @Composable
@@ -104,6 +123,7 @@ fun AutomobileCompanyListView(
                 ) {
                     items(data) { company ->
                         AutomobileCompanyListItemView(
+                            companyId = company.id,
                             companyName = company.name,
                             country = company.country,
                             foundedYear = company.foundedYear,
@@ -131,6 +151,7 @@ fun AutomobileCompanyListView(
 @Composable
 fun AutomobileCompanyListItemView(
     modifier: Modifier = Modifier,
+    companyId: Company.Id,
     companyName: String,
     country: String,
     foundedYear: Int,
@@ -147,26 +168,39 @@ fun AutomobileCompanyListItemView(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(vertical = 8.dp),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            Text(
-                text = companyName,
-                color = MyCustomTheme.exColors.textMain,
-                style = MyCustomTheme.exTypography.itemMain,
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = "${companyId.value}. ",
+                    color = MyCustomTheme.exColors.textSub,
+                    style = MyCustomTheme.exTypography.itemSub,
+                    textAlign = TextAlign.End,
+                )
+                Spacer(Modifier.width(4.dp))
+                Text(
+                    text = companyName,
+                    color = MyCustomTheme.exColors.textMain,
+                    style = MyCustomTheme.exTypography.itemMain,
+                )
+            }
+            Spacer(Modifier.height(2.dp))
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.End,
             ) {
                 Text(
                     text = country,
-                    color = MyCustomTheme.exColors.textMain,
+                    color = MyCustomTheme.exColors.textSub,
                     style = MyCustomTheme.exTypography.itemSub,
                 )
                 Text(
                     text = "Since $foundedYear",
-                    color = MyCustomTheme.exColors.textMain,
+                    color = MyCustomTheme.exColors.textSub,
                     style = MyCustomTheme.exTypography.itemSub,
                 )
             }

@@ -55,6 +55,14 @@ class AutomobileCompanyListViewModel(
         }
     }
 
+    fun onRefresh() {
+        logger.d("onRefresh()")
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.refresh()
+            useCase.fetch(limit = limit, cursor = Cursor.First)
+        }
+    }
+
     private fun setupBinding() {
         viewModelScope.launch {
             useCase.data.collect { resourceWithParam ->
@@ -83,6 +91,7 @@ class AutomobileCompanyListViewModel(
 
     data class UiState(
         val isLoading: Boolean = false,
+        val isRefreshing: Boolean = false,
         val nextCursor: Cursor<Int> = Cursor.First,
         val data: List<Company> = emptyList(),
     ) {
@@ -93,8 +102,17 @@ class AutomobileCompanyListViewModel(
         ): UiState {
             return copy(
                 isLoading = false,
+                isRefreshing = false,
                 nextCursor = nextCursor,
                 data = this.data + data,
+            )
+        }
+
+        fun refresh(): UiState {
+            return copy(
+                isRefreshing = true,
+                nextCursor = Cursor.First,
+                data = emptyList()
             )
         }
 
@@ -105,6 +123,7 @@ class AutomobileCompanyListViewModel(
         fun error(error: Error): UiState {
             return copy(
                 isLoading = false,
+                isRefreshing = false,
                 data = emptyList()
             )
         }
