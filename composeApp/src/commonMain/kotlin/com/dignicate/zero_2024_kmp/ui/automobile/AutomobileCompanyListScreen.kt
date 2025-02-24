@@ -90,9 +90,11 @@ fun AutomobileCompanyListView(
                 text = "Automobile Company List",
             )
         },
-        content = {
+        content = { paddingValues ->
             Box(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
             ) {
                 LazyColumn(
                     state = listState,
