@@ -8,12 +8,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -23,14 +25,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.dignicate.zero_2024_kmp.domain.Cursor
 import com.dignicate.zero_2024_kmp.domain.automobile.Company
 import com.dignicate.zero_2024_kmp.ui.appbar.CustomTopAppBar
 import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
-import com.dignicate.zero_2024_kmp.util.logger
 import org.koin.mp.KoinPlatform.getKoin
 
 @Composable
@@ -69,6 +70,7 @@ fun AutomobileCompanyListScreen(
     AutomobileCompanyListView(
         modifier = modifier.safeDrawingPadding(),
         data = uiState.value.data,
+        isLoading = uiState.value.isLoading,
         listState = listState,
     )
 }
@@ -77,6 +79,7 @@ fun AutomobileCompanyListScreen(
 fun AutomobileCompanyListView(
     modifier: Modifier,
     data: List<Company>,
+    isLoading: Boolean,
     listState: LazyListState,
 ) {
     Scaffold(
@@ -87,19 +90,38 @@ fun AutomobileCompanyListView(
                 text = "Automobile Company List",
             )
         },
-        content = {
-            LazyColumn(
-                state = listState,
+        content = { paddingValues ->
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp)
+                    .padding(paddingValues)
             ) {
-                items(data) { company ->
-                    AutomobileCompanyListItemView(
-                        companyName = company.name,
-                        country = company.country,
-                        foundedYear = company.foundedYear,
-                    )
+                LazyColumn(
+                    state = listState,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
+                ) {
+                    items(data) { company ->
+                        AutomobileCompanyListItemView(
+                            companyName = company.name,
+                            country = company.country,
+                            foundedYear = company.foundedYear,
+                        )
+                    }
+                }
+                if (isLoading) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(color = Color.Transparent),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .size(48.dp)
+                        )
+                    }
                 }
             }
         },

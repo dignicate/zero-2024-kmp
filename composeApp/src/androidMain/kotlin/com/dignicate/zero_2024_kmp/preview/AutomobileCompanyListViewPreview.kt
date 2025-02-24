@@ -26,6 +26,7 @@ private fun AutomobileCompanyListViewPreview() {
             modifier = Modifier,
             data = mockCompanyData,
             listState = rememberLazyListState(),
+            isLoading = false,
         )
     }
 }
@@ -39,6 +40,22 @@ private fun AutomobileCompanyListViewPreview_Dark() {
         AutomobileCompanyListView(
             modifier = Modifier,
             data = mockCompanyData,
+            listState = rememberLazyListState(),
+            isLoading = false,
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun AutomobileCompanyListViewPreview_Loading() {
+    MyCustomTheme(
+        exColors = lightExColors(),
+    ) {
+        AutomobileCompanyListView(
+            modifier = Modifier,
+            data = mockCompanyData,
+            isLoading = true,
             listState = rememberLazyListState(),
         )
     }
