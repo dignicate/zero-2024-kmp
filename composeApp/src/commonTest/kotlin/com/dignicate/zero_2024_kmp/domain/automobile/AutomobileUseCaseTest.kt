@@ -20,48 +20,14 @@ class AutomobileUseCaseTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun test() = runTest {
+        // TODO:
+        // create test scope
+        // create mock repository
+        // create use case
+        // collect data
+        // call fetch
+        // assert
 
         assertEquals(2, 2)
     }
 }
-
-//@OptIn(ExperimentalCoroutinesApi::class)
-//class AutomobileUseCaseTest {
-//
-//    private lateinit var useCase: AutomobileUseCase
-//    private lateinit var repository: FakeAutomobileRepository
-//    private lateinit var fetchTrigger: MutableSharedFlow<ParamWithCursor<AutomobileUseCase.FetchParams, Int>>
-//    private lateinit var data: StateFlow<ResourceWithCursor<List<Company>, Int>>
-//    private lateinit var testScope: TestScope
-//
-//    @Before
-//    fun setUp() {
-//        repository = FakeAutomobileRepository()
-//        fetchTrigger = MutableSharedFlow()
-//        testScope = TestScope()
-//        useCase = AutomobileUseCase(repository, TestCoroutineScope(Dispatchers.Default))
-//        data = useCase.data
-//    }
-//
-//    @Test
-//    fun `fetch should emit data when called`() = runTest {
-//        val limit = 10
-//        val cursor = Cursor.First
-//
-//        useCase.fetch(limit, cursor)
-//
-//        val result = data.first()
-//        assertEquals(ResourceWithCursor.Initialized, result.resource)
-//    }
-//
-//    @Test
-//    fun `fetch should not emit data when cursor is Cursor_End`() = runTest {
-//        val limit = 10
-//        val cursor = Cursor.End
-//
-//        useCase.fetch(limit, cursor)
-//
-//        val result = data.first()
-//        assertEquals(ResourceWithCursor.Initialized, result.resource)
-//    }
-//}
