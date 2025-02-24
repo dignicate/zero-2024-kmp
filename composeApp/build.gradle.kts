@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     kotlin("plugin.serialization") version "2.0.20"
     alias(libs.plugins.compose.compiler)
+//    id("io.mockative") version "3.0.1"
 }
 
 kotlin {
@@ -58,8 +59,9 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
-            implementation(libs.mockito.core)
-            implementation(libs.mockito.kotlin)
+//            implementation(libs.mockito.core)
+//            implementation(libs.mockito.kotlin)
+//            implementation(libs.mockative)
             implementation(libs.junit)
         }
         iosMain.dependencies {

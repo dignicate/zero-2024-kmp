@@ -18,8 +18,9 @@ stately-common = "2.1.0"
 uiAndroid = "1.7.8"
 kotlinx-coroutines-test = "1.9.0"
 junit = "4.13.2"
-mockito-core = "5.15.2"
-mockito-kotlin = "5.4.0"
+#mockito-core = "5.15.2"
+#mockito-kotlin = "5.4.0"
+#mockative = "3.0.1"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -50,8 +51,9 @@ androidx-ui-android = { group = "androidx.compose.ui", name = "ui-android", vers
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito-core" }
-mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito-kotlin" }
+#mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito-core" }
+#mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito-kotlin" }
+#mockative = { group = "io.mockative", name = "mockative", version.ref = "mockative" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
