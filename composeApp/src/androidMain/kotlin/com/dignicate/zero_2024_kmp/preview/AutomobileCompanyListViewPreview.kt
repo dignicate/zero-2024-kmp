@@ -26,6 +26,7 @@ private fun AutomobileCompanyListViewPreview() {
             modifier = Modifier,
             data = mockCompanyData,
             listState = rememberLazyListState(),
+            isLoading = false,
         )
     }
 }
@@ -40,6 +41,7 @@ private fun AutomobileCompanyListViewPreview_Dark() {
             modifier = Modifier,
             data = mockCompanyData,
             listState = rememberLazyListState(),
+            isLoading = false,
         )
     }
 }

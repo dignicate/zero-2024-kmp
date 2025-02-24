@@ -1,10 +1,10 @@
 package com.dignicate.zero_2024_kmp.ui.design
 
-import androidx.compose.material.Colors
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Typography
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
@@ -22,26 +22,13 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-val LightColorPalette = lightColors(
-//    primary = Color(0xFFEEEEEE),
-//    secondary = Color(0xFF03DAC5),
-//    background = Color.White,
-//    onPrimary = Color(0xFF121212),
-)
-
-val DarkColorPalette = darkColors(
-//    primary = Color(0xFFBB86FC),
-//    secondary = Color(0xFF03DAC5),
-//    background = Color.Black,
-)
-
 fun lightExColors(
     appBarBackground: Color = Color(0xFFEEEEEE),
     textMain: Color = Color(0xFF121212),
     textSub: Color = Color(0xFF666666),
     indicator: Color = Color(0xFF666666),
 ): ExColors = ExColors(
-    preset = LightColorPalette,
+    preset = lightColorScheme(),
     appBarBackground = appBarBackground,
     textMain = textMain,
     textSub = textSub,
@@ -54,7 +41,7 @@ fun darkExColors(
     textSub : Color = Color(0xFFAAAAAA),
     indicator: Color = Color(0xFFAAAAAA),
 ): ExColors = ExColors(
-    preset = DarkColorPalette,
+    preset = darkColorScheme(),
     appBarBackground = appBarBackground,
     textMain = textMain,
     textSub = textSub,
@@ -63,7 +50,7 @@ fun darkExColors(
 
 @Stable
 class ExColors(
-    var preset: Colors,
+    var preset: ColorScheme,
     appBarBackground: Color,
     textMain: Color,
     textSub: Color,
@@ -135,7 +122,7 @@ fun MyCustomTheme(
         LocalExTypography provides exTypography,
     ) {
         MaterialTheme(
-            colors = exColors.preset,
+            colorScheme = exColors.preset,
             typography = exTypography.preset,
             content = content
         )
