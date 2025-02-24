@@ -55,6 +55,13 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime)
             implementation(libs.stately.common)
         }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.mockito.core)
+            implementation(libs.mockito.kotlin)
+            implementation(libs.junit)
+        }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
@@ -107,12 +114,11 @@ android {
 dependencies {
     implementation(libs.androidx.ui.android)
 
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.junit)
+//    testImplementation(libs.kotlinx.coroutines.test)
+//    testImplementation(libs.junit)
 
-    testImplementation("org.mockito:mockito-core:4.11.0")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
-    testImplementation(libs.junit.junit)
+//    testImplementation("org.mockito:mockito-core:4.11.0")
+//    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
 }
 
 compose.desktop {

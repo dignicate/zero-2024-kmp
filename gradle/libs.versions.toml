@@ -16,9 +16,10 @@ coroutines = "1.9.0"
 logging = "1.4.1"
 stately-common = "2.1.0"
 uiAndroid = "1.7.8"
-kotlinx-coroutines-test = "1.6.4"
+kotlinx-coroutines-test = "1.9.0"
 junit = "4.13.2"
-junitVersion = "4.12"
+mockito-core = "5.15.2"
+mockito-kotlin = "5.4.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -48,7 +49,9 @@ stately-common = { module = "co.touchlab:stately-common", version.ref = "stately
 androidx-ui-android = { group = "androidx.compose.ui", name = "ui-android", version.ref = "uiAndroid" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
 junit = { module = "junit:junit", version.ref = "junit" }
-junit-junit = { group = "junit", name = "junit", version.ref = "junitVersion" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito-core" }
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito-kotlin" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
