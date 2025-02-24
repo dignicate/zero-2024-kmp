@@ -76,9 +76,9 @@ fun AutomobileCompanyListScreen(
     PullToRefreshBox(
         modifier = modifier.safeDrawingPadding(),
         onRefresh = {
-            logger.d("onRefresh()")
+            viewModel.onRefresh()
         },
-        isRefreshing = uiState.value.isLoading,
+        isRefreshing = uiState.value.isRefreshing,
         state = pullToRefreshState,
     ) {
         AutomobileCompanyListView(
