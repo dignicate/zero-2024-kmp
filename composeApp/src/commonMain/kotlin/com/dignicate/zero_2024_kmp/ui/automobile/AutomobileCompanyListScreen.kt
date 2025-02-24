@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
@@ -69,6 +70,7 @@ fun AutomobileCompanyListScreen(
     AutomobileCompanyListView(
         modifier = modifier.safeDrawingPadding(),
         data = uiState.value.data,
+        isLoading = uiState.value.isLoading,
         listState = listState,
     )
 }
@@ -77,7 +79,7 @@ fun AutomobileCompanyListScreen(
 fun AutomobileCompanyListView(
     modifier: Modifier,
     data: List<Company>,
-    isLoading: Boolean = false,
+    isLoading: Boolean,
     listState: LazyListState,
 ) {
     Scaffold(
@@ -110,11 +112,12 @@ fun AutomobileCompanyListView(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(color = Color.Transparent)
-                            .align(Alignment.Center)
+                            .background(color = Color.Transparent),
+                        contentAlignment = Alignment.Center,
                     ) {
                         CircularProgressIndicator(
-                            modifier = Modifier.align(Alignment.Center)
+                            modifier = Modifier
+                                .size(48.dp)
                         )
                     }
                 }
