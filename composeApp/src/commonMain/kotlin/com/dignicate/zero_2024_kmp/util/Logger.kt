@@ -2,9 +2,13 @@ package com.dignicate.zero_2024_kmp.util
 
 import org.lighthousegames.logging.logging
 
-val logger: LogWrapper = Logger
+var logger: UntaggedLogWrapper = LightHouseGamesLogger
 
-private object Logger : LogWrapper, LogWrapper.Untagged {
+fun setTestLogger() {
+    logger = TestLogger
+}
+
+private object LightHouseGamesLogger : UntaggedLogWrapper {
     private val wrappers: MutableMap<String, TaggedLogWrapper> = mutableMapOf()
 
     override fun tag(tag: String): LogWrapper {
@@ -12,7 +16,7 @@ private object Logger : LogWrapper, LogWrapper.Untagged {
     }
 
     private fun wrapperWithTag(tag: String): TaggedLogWrapper {
-        return wrappers.getOrPut(tag) { TaggedLogWrapper(tag) }
+        return wrappers.getOrPut(tag) { TaggedLogWrapper(tag, this) }
     }
 
     override fun d(message: String) {
@@ -48,24 +52,57 @@ interface LogWrapper {
     }
 }
 
-data class TaggedLogWrapper(val tag: String) : LogWrapper {
+interface UntaggedLogWrapper : LogWrapper, LogWrapper.Untagged
+
+data class TaggedLogWrapper(
+    val tag: String,
+    val wrapper : LogWrapper,
+) : LogWrapper {
     override fun d(message: String) {
-        logging().debug(tag) { message }
+        wrapper.d(message)
     }
 
     override fun i(message: String) {
-        logging().info(tag) { message }
+        wrapper.i(message)
     }
 
     override fun w(throwable: Throwable?, message: String) {
-        logging().warn(throwable, tag) { message }
+        wrapper.w(throwable, message)
     }
 
     override fun e(throwable: Throwable?, message: String) {
-        logging().error(throwable, tag) { message }
+        wrapper.e(throwable, message)
     }
 
     override fun v(message: String) {
-        logging().verbose(tag) { message }
+        wrapper.v(message)
+    }
+}
+
+private object TestLogger : UntaggedLogWrapper {
+    override fun d(message: String) {
+        println("DEBUG: $message")
+    }
+
+    override fun i(message: String) {
+        println("INFO: $message")
+    }
+
+    override fun w(throwable: Throwable?, message: String) {
+        println("WARN: $message")
+        throwable?.printStackTrace()
+    }
+
+    override fun e(throwable: Throwable?, message: String) {
+        println("ERROR: $message")
+        throwable?.printStackTrace()
+    }
+
+    override fun v(message: String) {
+        println("VERBOSE: $message")
+    }
+
+    override fun tag(tag: String): LogWrapper {
+        return TaggedLogWrapper(tag, this)
     }
 }

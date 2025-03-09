@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     kotlin("plugin.serialization") version "2.0.20"
     alias(libs.plugins.compose.compiler)
+//    id("io.mockative") version "3.0.1"
 }
 
 kotlin {
@@ -54,7 +55,14 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime)
             implementation(libs.stately.common)
-
+        }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+//            implementation(libs.mockito.core)
+//            implementation(libs.mockito.kotlin)
+//            implementation(libs.mockative)
+            implementation(libs.junit)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -93,7 +101,7 @@ android {
     }
     dependencies {
         // Compose
-        val composeBom = platform("androidx.compose:compose-bom:2024.03.00")
+        val composeBom = platform("androidx.compose:compose-bom:2025.02.00")
         implementation(composeBom)
         // Android Studio Preview support
         implementation(libs.compose.ui.tooling.preview)
@@ -107,6 +115,12 @@ android {
 }
 dependencies {
     implementation(libs.androidx.ui.android)
+
+//    testImplementation(libs.kotlinx.coroutines.test)
+//    testImplementation(libs.junit)
+
+//    testImplementation("org.mockito:mockito-core:4.11.0")
+//    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
 }
 
 compose.desktop {

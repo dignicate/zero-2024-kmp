@@ -69,6 +69,7 @@ private fun AutomobileCompanyListItemViewPreview() {
     ) {
         AutomobileCompanyListItemView(
             modifier = Modifier,
+            companyId = Company.Id(1),
             companyName = "Sample Company",
             country = "Sample Country",
             foundedYear = 2024,
@@ -84,6 +85,7 @@ private fun AutomobileCompanyListItemViewPreview_Dark() {
     ) {
         AutomobileCompanyListItemView(
             modifier = Modifier,
+            companyId = Company.Id(1),
             companyName = "Sample Company",
             country = "Sample Country",
             foundedYear = 2024,
@@ -99,6 +101,7 @@ private fun AutomobileCompanyListItemViewPreview_LongText() {
     ) {
         AutomobileCompanyListItemView(
             modifier = Modifier,
+            companyId = Company.Id(1),
             companyName = "Sample Company Very Very Very Long Long Name",
             country = "Sample Country",
             foundedYear = 2024,
