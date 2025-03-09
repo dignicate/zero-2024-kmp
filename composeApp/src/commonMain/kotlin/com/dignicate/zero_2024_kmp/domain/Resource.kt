@@ -65,6 +65,7 @@ fun <S: Any, T: Any> MutableSharedFlow<S>.mapToResourceAsFlow(
     then: (S) -> Flow<Result<T>>,
     mapError: (Throwable) -> Error = { Error.Unknown(it) },
 ): Flow<Resource<T>> {
+    logger.d("mapToResourceAsFlow")
     return flatMapMerge { param: S ->
         flow {
             emit(Resource.InProgress)
@@ -100,6 +101,7 @@ fun <S : Any, T : Any, U : Any> Flow<ParamWithCursor<S, U>>.mapToResourceFlow(
     onSuccess: (S, T, Cursor<U>) -> T = { _, data, _ -> data },
     mapError: ((Throwable) -> Error)? = null,
 ): Flow<ResourceWithCursor<T, U>> {
+    logger.d("mapToResourceFlow")
     return flatMapMerge { param: ParamWithCursor<S, U> ->
         flow {
             emit(
@@ -144,6 +146,7 @@ fun <S : Any, T : Any, U : Any> Flow<ParamWithCursor<S, U>>.mapToResource(
     onSuccess: (S, T, Cursor<U>) -> T = { _, data, _ -> data },
     mapError: ((Throwable) -> Error)? = null,
 ): StateFlow<ResourceWithCursor<T, U>> {
+    logger.d("mapToResource")
     return mapToResourceFlow(
         then = then,
         nextCursor = nextCursor,

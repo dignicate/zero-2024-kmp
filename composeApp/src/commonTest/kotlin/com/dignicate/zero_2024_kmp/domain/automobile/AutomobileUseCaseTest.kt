@@ -1,24 +1,31 @@
 package com.dignicate.zero_2024_kmp.domain.automobile
 
 import com.dignicate.zero_2024_kmp.domain.Cursor
-import com.dignicate.zero_2024_kmp.domain.ParamWithCursor
+import com.dignicate.zero_2024_kmp.domain.Resource
 import com.dignicate.zero_2024_kmp.domain.ResourceWithCursor
-import io.mockative.mock
-import io.mockative.of
-import kotlinx.coroutines.Dispatchers
+import com.dignicate.zero_2024_kmp.util.setTestLogger
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onSubscription
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class AutomobileUseCaseTest {
+
+    private val testDispatcher = StandardTestDispatcher()
 
     private val testData: List<Company> = listOf(
         Company(
@@ -29,20 +36,74 @@ class AutomobileUseCaseTest {
         ),
     )
 
-    val repository = mock(of<AutomobileRepository>())
+    @BeforeTest
+    fun setUp() {
+        setTestLogger()
+    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun test() = runTest {
-        // TODO:
-        // create test scope
+        val repository = AutomobileRepositoryMock(
+            mockGetAutomobileRepository = { limit, cursor ->
+                println("mock")
+                if (cursor == Cursor.First) {
+                    Result.success(testData)
+                } else {
+                    Result.success(emptyList())
+                }
+            }
+        )
+        val results = mutableListOf<ResourceWithCursor<List<Company>, Int>>()
+        val useCase = AutomobileUseCase(
+            repository = repository,
+            scope = CoroutineScope(testDispatcher),
+        )
+        backgroundScope.launch {
+            useCase.data
+                .onSubscription {
+                    println("onSubscription")
+                }
+                .onEach {
+                    println(it)
+                    results.add(it)
+                }
+                .onCompletion {
+                    println("onCompletion")
+                }
+                .collect()
+        }
+        advanceTimeBy(20)
 
-        // create mock repository
-        // create use case
-        // collect data
-        // call fetch
-        // assert
+        useCase.fetch(10, Cursor.First)
+        advanceTimeBy(9)
+        useCase.fetch(10, Cursor.Next(2))
+        advanceTimeBy(9)
 
-        assertEquals(2, 2)
+        assertEquals(3, results.size)
+        results[0].let {
+            assertEquals(Resource.Initialized, it.resource)
+            assertEquals(Cursor.First, it.currentCursor)
+            assertEquals(null, it.nextCursor)
+        }
+//        assertIs(Resource.)
+//        assertEquals(2, 2)
+    }
+
+    class AutomobileRepositoryMock(
+        private val mockGetAutomobileRepository: (limit: Int, cursor: Cursor<Int>) -> Result<List<Company>>,
+    ) : AutomobileRepository {
+        override fun getAutomobileCompanyList(
+            limit: Int,
+            cursor: Cursor<Int>
+        ): Flow<Result<List<Company>>> {
+            println("getAutomobileCompanyList()")
+            return flow {
+                delay(1)
+                emit(mockGetAutomobileRepository(limit, cursor))
+            }
+        }
     }
 }
+
+
