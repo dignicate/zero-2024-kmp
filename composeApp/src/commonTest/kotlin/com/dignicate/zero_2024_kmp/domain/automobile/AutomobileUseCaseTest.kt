@@ -27,15 +27,6 @@ class AutomobileUseCaseTest {
 
     private val testDispatcher = StandardTestDispatcher()
 
-    private val testData: List<Company> = listOf(
-        Company(
-            id = Company.Id(1),
-            name = "company1",
-            country = "Japan",
-            foundedYear = 2000,
-        ),
-    )
-
     @BeforeTest
     fun setUp() {
         setTestLogger()
