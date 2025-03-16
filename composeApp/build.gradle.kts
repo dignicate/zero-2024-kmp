@@ -4,9 +4,8 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
-    kotlin("plugin.serialization") version "2.0.20"
+    kotlin("plugin.serialization") version "2.0.21"
     alias(libs.plugins.compose.compiler)
-//    id("io.mockative") version "3.0.1"
 }
 
 kotlin {
