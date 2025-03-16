@@ -4,16 +4,15 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
-    kotlin("plugin.serialization") version "2.0.20"
+    kotlin("plugin.serialization") version "2.0.21"
     alias(libs.plugins.compose.compiler)
-//    id("io.mockative") version "3.0.1"
 }
 
 kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "11"
+                jvmTarget = "17"
             }
         }
     }
@@ -34,6 +33,7 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
+            implementation("androidx.core:core-splashscreen:1.0.1")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
