@@ -55,6 +55,9 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime)
             implementation(libs.stately.common)
+            // nav
+            implementation(libs.navigation.compose)
+            implementation(libs.screen.size)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
