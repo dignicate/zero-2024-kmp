@@ -9,6 +9,8 @@ import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
 import com.dignicate.zero_2024_kmp.ui.design.darkExColors
 import com.dignicate.zero_2024_kmp.ui.design.lightExColors
 import com.dignicate.zero_2024_kmp.domain.automobile.Company
+import com.dignicate.zero_2024_kmp.ui.screen.automobile.AutomobileCompanyListItemView
+import com.dignicate.zero_2024_kmp.ui.screen.automobile.AutomobileCompanyListView
 
 private val mockCompanyData = listOf(
     Company(id = Company.Id(1), name = "Sample Company 1", country = "Country 1", foundedYear = 2001),

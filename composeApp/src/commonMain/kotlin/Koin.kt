@@ -8,7 +8,7 @@ import com.dignicate.zero_2024_kmp.domain.automobile.AutomobileRepository
 import com.dignicate.zero_2024_kmp.domain.automobile.AutomobileUseCase
 import com.dignicate.zero_2024_kmp.domain.sample.SampleRepository
 import com.dignicate.zero_2024_kmp.domain.sample.SampleUseCase
-import com.dignicate.zero_2024_kmp.ui.automobile.AutomobileCompanyListViewModel
+import com.dignicate.zero_2024_kmp.ui.screen.automobile.AutomobileCompanyListViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
