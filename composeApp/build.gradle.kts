@@ -34,6 +34,9 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
             implementation("androidx.core:core-splashscreen:1.0.1")
+
+            implementation("com.google.accompanist:accompanist-pager:0.36.0")
+            implementation("com.google.accompanist:accompanist-pager-indicators:0.36.0")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -99,9 +102,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
+//    kotlinOptions {
+//        jvmTarget = "17"
+//    }
     dependencies {
         // Compose
         val composeBom = platform("androidx.compose:compose-bom:2025.02.00")

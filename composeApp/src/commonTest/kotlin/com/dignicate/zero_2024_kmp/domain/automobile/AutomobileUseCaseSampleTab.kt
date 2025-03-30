@@ -23,7 +23,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class AutomobileUseCaseTest {
+class AutomobileUseCaseSampleTab {
 
     private val testDispatcher = StandardTestDispatcher()
 

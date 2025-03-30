@@ -52,5 +52,8 @@ fun NavGraphBuilder.mainNavGraph(
         composable(route = Routes.Setting.route) {
             SettingScreen(rootNavController = rootNavController, paddingValues = innerPadding)
         }
+        composable(route = Routes.SampleTab.route) {
+//            TestScreen(rootNavController = rootNavController, paddingValues = innerPadding)
+        }
     }
 }
