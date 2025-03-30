@@ -15,6 +15,7 @@ import com.dignicate.zero_2024_kmp.ui.screen.automobile.AutomobileCompanyListScr
 import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
 import com.dignicate.zero_2024_kmp.ui.design.darkExColors
 import com.dignicate.zero_2024_kmp.ui.design.lightExColors
+import com.dignicate.zero_2024_kmp.ui.screen.MainScreen
 import zero2024kmp.composeapp.generated.resources.Res
 import zero2024kmp.composeapp.generated.resources.compose_multiplatform
 
@@ -33,9 +34,10 @@ fun App() {
     MyCustomTheme(
         exColors = exColors,
     ) {
-        AutomobileCompanyListScreen(
-            modifier = Modifier,
-        )
+//        AutomobileCompanyListScreen(
+//            modifier = Modifier,
+//        )
+        MainScreen()
     }
 }
 
