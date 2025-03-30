@@ -11,25 +11,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun MyTabPager(
+expect fun MyTabPager(
     tabs: List<String>,
     currentPage: Int,
     onPageSelected: (Int) -> Unit,
     content: @Composable (Int) -> Unit
-) {
-    Column {
-        Row(Modifier.fillMaxWidth()) {
-            tabs.forEachIndexed { index, title ->
-                Button(
-                    onClick = { onPageSelected(index) },
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(title)
-                }
-            }
-        }
-        Box(modifier = Modifier.fillMaxSize()) {
-            content(currentPage)
-        }
-    }
-}
+)
+//{
+//    Column {
+//        Row(Modifier.fillMaxWidth()) {
+//            tabs.forEachIndexed { index, title ->
+//                Button(
+//                    onClick = { onPageSelected(index) },
+//                    modifier = Modifier.weight(1f)
+//                ) {
+//                    Text(title)
+//                }
+//            }
+//        }
+//        Box(modifier = Modifier.fillMaxSize()) {
+//            content(currentPage)
+//        }
+//    }
+//}

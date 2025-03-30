@@ -9,7 +9,7 @@ object Graph {
 }
 
 sealed class Routes(var route: String) {
-    data object SampleTab : Routes("sampleTab")
+    data object Tab : Routes("tab")
     data object Home : Routes("home")
     data object Setting : Routes("setting")
     data object HomeDetail : Routes("homeDetail")
@@ -21,7 +21,7 @@ val navigationItemsLists = listOf(
         unSelectedIcon = Icons.Outlined.Build,
         selectedIcon = Icons.Filled.Build,
         title = "Test",
-        route = Routes.SampleTab.route,
+        route = Routes.Tab.route,
     ),
     NavigationItem(
         unSelectedIcon = Icons.Outlined.Home,
