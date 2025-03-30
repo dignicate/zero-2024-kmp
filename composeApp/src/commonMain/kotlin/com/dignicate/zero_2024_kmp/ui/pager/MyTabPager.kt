@@ -34,3 +34,17 @@ expect fun MyTabPager(
 //        }
 //    }
 //}
+
+enum class ViewState {
+    Tabs
+    ;
+//    Settings,
+//    Login
+
+    fun mapToSwiftViewState(viewState: ViewState): String = when (viewState) {
+        Tabs -> "tabs"
+//        ViewState.Settings -> "settings"
+//        ViewState.Login -> "login"
+    }
+}
+
