@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.dignicate.zero_2024_kmp.ui.pager.MyTabPager
+import com.dignicate.zero_2024_kmp.ui.pager.PagerScreen
 import getPlatform
 import isIos
 
@@ -16,7 +17,7 @@ fun TabScreen() {
 
     if (getPlatform().isIos()) {
         // iOS → Swift 側に任せる or シンプル表示
-        TabContent(page = currentPage)
+//        TabContent(page = currentPage)
     } else {
         // Android / Desktop → Column で safe area 避けてレイアウト
         Column(
@@ -29,23 +30,24 @@ fun TabScreen() {
                 currentPage = currentPage,
                 onPageSelected = { currentPage = it }
             ) { page ->
-                TabContent(page = page)
+//                TabContent(page = page)
+                PagerScreen(page)
             }
         }
     }
 }
 
 
-@Composable
-private fun TabContent(page: Int) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(32.dp)
-    ) {
-        Text(
-            text = "This is page ${page + 1}",
-            style = MaterialTheme.typography.headlineMedium
-        )
-    }
-}
+//@Composable
+//private fun TabContent(page: Int) {
+//    Box(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .padding(32.dp)
+//    ) {
+//        Text(
+//            text = "This is page ${page + 1}",
+//            style = MaterialTheme.typography.headlineMedium
+//        )
+//    }
+//}

@@ -1,4 +1,5 @@
 import SwiftUI
+import ComposeApp
 
 struct MyTabPagerView: View {
     @State private var selectedIndex: Int = 0
@@ -12,18 +13,20 @@ struct MyTabPagerView: View {
             }
             .pickerStyle(.segmented)
 
-            Spacer()
+//             Spacer()
+//
+//             Group {
+//                 switch selectedIndex {
+//                 case 0: Text("This is page 1")
+//                 case 1: Text("This is page 2")
+//                 case 2: Text("This is page 3")
+//                 default: EmptyView()
+//                 }
+//             }
+//
+//             Spacer()
 
-            Group {
-                switch selectedIndex {
-                case 0: Text("This is page 1")
-                case 1: Text("This is page 2")
-                case 2: Text("This is page 3")
-                default: EmptyView()
-                }
-            }
-
-            Spacer()
+            ComposeContentView(index: selectedIndex)
         }
         .padding()
     }
