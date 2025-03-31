@@ -48,3 +48,6 @@ enum class ViewState {
     }
 }
 
+public class ViewStateProvider {
+    public fun startUpViewState(): String = "tabs" // ← Swift 側に渡すための文字列
+}
