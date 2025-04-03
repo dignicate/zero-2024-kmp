@@ -147,3 +147,30 @@ compose.desktop {
 compose.experimental {
     web.application {}
 }
+
+tasks.register("assembleXCFramework") {
+    group = "build"
+    description = "Assembles a universal XCFramework for iOS"
+
+    dependsOn(
+        "linkReleaseFrameworkIosArm64",
+        "linkReleaseFrameworkIosSimulatorArm64"
+    )
+
+    doLast {
+        val outputDir = buildDir.resolve("XCFrameworks/release")
+        val arm64Framework = buildDir.resolve("bin/iosArm64/releaseFramework/ComposeApp.framework")
+        val simArm64Framework = buildDir.resolve("bin/iosSimulatorArm64/releaseFramework/ComposeApp.framework")
+
+        outputDir.mkdirs()
+
+        exec {
+            commandLine = listOf(
+                "xcodebuild", "-create-xcframework",
+                "-framework", arm64Framework.absolutePath,
+                "-framework", simArm64Framework.absolutePath,
+                "-output", outputDir.resolve("ComposeApp.xcframework").absolutePath
+            )
+        }
+    }
+}
