@@ -17,9 +17,7 @@ fun TabScreen() {
 
     if (getPlatform().isIos()) {
         // iOS → Swift 側に任せる or シンプル表示
-//        TabContent(page = currentPage)
     } else {
-        // Android / Desktop → Column で safe area 避けてレイアウト
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -30,24 +28,8 @@ fun TabScreen() {
                 currentPage = currentPage,
                 onPageSelected = { currentPage = it }
             ) { page ->
-//                TabContent(page = page)
                 PagerScreen(page)
             }
         }
     }
 }
-
-
-//@Composable
-//private fun TabContent(page: Int) {
-//    Box(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .padding(32.dp)
-//    ) {
-//        Text(
-//            text = "This is page ${page + 1}",
-//            style = MaterialTheme.typography.headlineMedium
-//        )
-//    }
-//}

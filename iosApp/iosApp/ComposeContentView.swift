@@ -1,7 +1,7 @@
 import SwiftUI
 import ComposeApp
 
-struct PagerScreenView: UIViewControllerRepresentable {
+struct ComposeContentView: UIViewControllerRepresentable {
     let index: Int
 
     func makeUIViewController(context: Context) -> UIViewController {
@@ -9,6 +9,6 @@ struct PagerScreenView: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        // No-op
+        // ここは空でOK
     }
 }

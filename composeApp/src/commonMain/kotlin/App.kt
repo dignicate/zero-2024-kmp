@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import org.jetbrains.compose.resources.painterResource
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.dignicate.zero_2024_kmp.ui.screen.automobile.AutomobileCompanyListScreen
 import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
 import com.dignicate.zero_2024_kmp.ui.design.darkExColors
 import com.dignicate.zero_2024_kmp.ui.design.lightExColors
@@ -34,9 +33,6 @@ fun App() {
     MyCustomTheme(
         exColors = exColors,
     ) {
-//        AutomobileCompanyListScreen(
-//            modifier = Modifier,
-//        )
         MainScreen()
     }
 }
