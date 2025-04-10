@@ -1,4 +1,4 @@
-package com.dignicate.zero_2024_kmp.ui.automobile
+package com.dignicate.zero_2024_kmp.ui.screen.automobile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

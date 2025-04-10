@@ -11,11 +11,28 @@ struct ComposeView: UIViewControllerRepresentable {
 }
 
 struct ContentView: View {
-    var body: some View {
-        ComposeView()
-                .ignoresSafeArea(.keyboard) // Compose has own keyboard handler
+    @State private var viewState: ViewState
+    
+    init(viewState: ViewState) {
+        self.viewState = viewState
     }
+    
+    var body: some View {
+        switch viewState {
+        case .tabs:
+            MyTabPagerView()
+        }
+    }
+    
+    enum ViewState {
+        case tabs
+        
+        init?(rawString: String) {
+            switch rawString {
+            case "tabs": self = .tabs
+            default: return nil
+            }
+        }
+    }
+
 }
-
-
-

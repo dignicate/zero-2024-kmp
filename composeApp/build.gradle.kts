@@ -34,6 +34,9 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
             implementation("androidx.core:core-splashscreen:1.0.1")
+
+            implementation("com.google.accompanist:accompanist-pager:0.36.0")
+            implementation("com.google.accompanist:accompanist-pager-indicators:0.36.0")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -55,6 +58,9 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime)
             implementation(libs.stately.common)
+            // nav
+            implementation(libs.navigation.compose)
+            implementation(libs.screen.size)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -96,9 +102,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
+//    kotlinOptions {
+//        jvmTarget = "17"
+//    }
     dependencies {
         // Compose
         val composeBom = platform("androidx.compose:compose-bom:2025.02.00")
@@ -137,4 +146,31 @@ compose.desktop {
 
 compose.experimental {
     web.application {}
+}
+
+tasks.register("assembleXCFramework") {
+    group = "build"
+    description = "Assembles a universal XCFramework for iOS"
+
+    dependsOn(
+        "linkReleaseFrameworkIosArm64",
+        "linkReleaseFrameworkIosSimulatorArm64"
+    )
+
+    doLast {
+        val outputDir = buildDir.resolve("XCFrameworks/release")
+        val arm64Framework = buildDir.resolve("bin/iosArm64/releaseFramework/ComposeApp.framework")
+        val simArm64Framework = buildDir.resolve("bin/iosSimulatorArm64/releaseFramework/ComposeApp.framework")
+
+        outputDir.mkdirs()
+
+        exec {
+            commandLine = listOf(
+                "xcodebuild", "-create-xcframework",
+                "-framework", arm64Framework.absolutePath,
+                "-framework", simArm64Framework.absolutePath,
+                "-output", outputDir.resolve("ComposeApp.xcframework").absolutePath
+            )
+        }
+    }
 }

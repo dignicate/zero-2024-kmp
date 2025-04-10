@@ -12,7 +12,26 @@
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		8C2CA4DF2D87138F00F42AB7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2CA4DE2D87138F00F42AB7 /* LaunchScreen.storyboard */; };
+		8C575A6B2D995DD500F47161 /* MyTabPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C575A6A2D995DD500F47161 /* MyTabPagerView.swift */; };
+		8C575A6D2D9DF11B00F47161 /* PagerScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C575A6C2D9DF11B00F47161 /* PagerScreenView.swift */; };
+		8C6C10992D9F4D3E00D0678E /* ComposeApp.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6C10982D9F4D3E00D0678E /* ComposeApp.xcframework */; };
+		8C6C109A2D9F4D3E00D0678E /* ComposeApp.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6C10982D9F4D3E00D0678E /* ComposeApp.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8C6C109D2D9F4E2700D0678E /* ComposeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6C109C2D9F4E2700D0678E /* ComposeContentView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8C6C109B2D9F4D3E00D0678E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8C6C109A2D9F4D3E00D0678E /* ComposeApp.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -22,6 +41,10 @@
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C2CA4DE2D87138F00F42AB7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8C575A6A2D995DD500F47161 /* MyTabPagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabPagerView.swift; sourceTree = "<group>"; };
+		8C575A6C2D9DF11B00F47161 /* PagerScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerScreenView.swift; sourceTree = "<group>"; };
+		8C6C10982D9F4D3E00D0678E /* ComposeApp.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ComposeApp.xcframework; path = ../composeApp/build/XCFrameworks/release/ComposeApp.xcframework; sourceTree = "<group>"; };
+		8C6C109C2D9F4E2700D0678E /* ComposeContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeContentView.swift; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -30,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C6C10992D9F4D3E00D0678E /* ComposeApp.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,6 +71,7 @@
 		42799AB246E5F90AF97AA0EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8C6C10982D9F4D3E00D0678E /* ComposeApp.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -78,6 +103,9 @@
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 				8C2CA4DE2D87138F00F42AB7 /* LaunchScreen.storyboard */,
+				8C575A6A2D995DD500F47161 /* MyTabPagerView.swift */,
+				8C575A6C2D9DF11B00F47161 /* PagerScreenView.swift */,
+				8C6C109C2D9F4E2700D0678E /* ComposeContentView.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -101,6 +129,7 @@
 				7555FF77242A565900829871 /* Sources */,
 				B92378962B6B1156000C7307 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
+				8C6C109B2D9F4D3E00D0678E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -189,6 +218,9 @@
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				8C575A6B2D995DD500F47161 /* MyTabPagerView.swift in Sources */,
+				8C575A6D2D9DF11B00F47161 /* PagerScreenView.swift in Sources */,
+				8C6C109D2D9F4E2700D0678E /* ComposeContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

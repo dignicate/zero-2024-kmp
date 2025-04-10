@@ -1,4 +1,4 @@
-package com.dignicate.zero_2024_kmp.ui.automobile
+package com.dignicate.zero_2024_kmp.ui.screen.automobile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
