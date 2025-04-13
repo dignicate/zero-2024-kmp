@@ -38,6 +38,7 @@ fun RootNavGraph(
         }
     }
 }
+
 fun NavGraphBuilder.mainNavGraph(
     rootNavController: NavHostController,
     innerPadding: PaddingValues
