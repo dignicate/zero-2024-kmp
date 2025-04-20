@@ -71,7 +71,7 @@ fun AutomobileCompanyListScreen(
     LaunchedEffect(listState) {
         snapshotFlow { listState.layoutInfo.visibleItemsInfo }
             .collect { visibleItems ->
-                if (visibleItems.isNotEmpty() && visibleItems.last().index == uiState.value.data.size - 1) {
+                if (visibleItems.isNotEmpty() && visibleItems.last().index == uiState.value.data.size - 2) {
                     viewModel.onScrollEnd()
                 }
             }
@@ -119,7 +119,7 @@ fun AutomobileCompanyListView(
                     state = listState,
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(16.dp)
+                        .padding(horizontal = 16.dp)
                 ) {
                     items(data) { company ->
                         AutomobileCompanyListItemView(
@@ -128,6 +128,9 @@ fun AutomobileCompanyListView(
                             country = company.country,
                             foundedYear = company.foundedYear,
                         )
+                    }
+                    item {
+                        Spacer(modifier = Modifier.height(96.dp))
                     }
                 }
                 if (isLoading) {

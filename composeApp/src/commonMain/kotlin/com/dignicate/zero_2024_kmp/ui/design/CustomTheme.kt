@@ -23,26 +23,38 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 fun lightExColors(
-    appBarBackground: Color = Color(0xFFEEEEEE),
+    appBarBackground: Color = Color(0xFF121212),
+    appBarText: Color = Color(0xFFFFFFFF),
+    tabBackground: Color = Color(0xFFFFFFFF),
+    tabText: Color = Color(0xFF121212),
     textMain: Color = Color(0xFF121212),
     textSub: Color = Color(0xFF666666),
     indicator: Color = Color(0xFF666666),
 ): ExColors = ExColors(
     preset = lightColorScheme(),
     appBarBackground = appBarBackground,
+    appBarText = appBarText,
+    tabBackground = tabBackground,
+    tabText = tabText,
     textMain = textMain,
     textSub = textSub,
     indicator = indicator,
 )
 
 fun darkExColors(
-    appBarBackground: Color = Color(0xFF121212),
+    appBarBackground: Color = Color(0xFFFFFFFF),
+    appBarText: Color = Color(0xFF121212),
+    tabBackground: Color = Color(0xFF121212),
+    tabText: Color = Color(0xFFFFFFFF),
     textMain: Color = Color(0xFFEEEEEE),
     textSub : Color = Color(0xFFAAAAAA),
     indicator: Color = Color(0xFFAAAAAA),
 ): ExColors = ExColors(
     preset = darkColorScheme(),
     appBarBackground = appBarBackground,
+    appBarText = appBarText,
+    tabBackground = tabBackground,
+    tabText = tabText,
     textMain = textMain,
     textSub = textSub,
     indicator = indicator,
@@ -52,11 +64,20 @@ fun darkExColors(
 class ExColors(
     var preset: ColorScheme,
     appBarBackground: Color,
+    appBarText: Color,
+    tabBackground: Color,
+    tabText: Color,
     textMain: Color,
     textSub: Color,
     indicator: Color,
 ) {
     var appBarBackground by mutableStateOf(appBarBackground, structuralEqualityPolicy())
+        internal set
+    var appBarText by mutableStateOf(appBarText, structuralEqualityPolicy())
+        internal set
+    var tabBackground by mutableStateOf(tabBackground, structuralEqualityPolicy())
+        internal set
+    var tabText by mutableStateOf(tabText, structuralEqualityPolicy())
         internal set
     var textMain by mutableStateOf(textMain, structuralEqualityPolicy())
         internal set
@@ -67,12 +88,18 @@ class ExColors(
 
     fun copy(
         appBarBackground: Color = this.appBarBackground,
+        appBarText: Color = this.appBarText,
+        tabBackground: Color = this.tabBackground,
+        tabText: Color = this.tabText,
         textMain: Color = this.textMain,
         textSub: Color = this.textSub,
         indicator: Color = this.indicator,
     ): ExColors = ExColors(
         preset = preset,
         appBarBackground = appBarBackground,
+        appBarText = appBarText,
+        tabBackground = tabBackground,
+        tabText = tabText,
         textMain = textMain,
         textSub = textSub,
         indicator = indicator,
@@ -82,6 +109,9 @@ class ExColors(
 internal fun ExColors.updateColorsFrom(other: ExColors) {
     preset = other.preset
     appBarBackground = other.appBarBackground
+    appBarText = other.appBarText
+    tabBackground = other.tabBackground
+    tabText = other.tabText
     textMain = other.textMain
 }
 
