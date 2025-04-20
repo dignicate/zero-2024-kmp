@@ -71,7 +71,7 @@ fun AutomobileCompanyListScreen(
     LaunchedEffect(listState) {
         snapshotFlow { listState.layoutInfo.visibleItemsInfo }
             .collect { visibleItems ->
-                if (visibleItems.isNotEmpty() && visibleItems.last().index == uiState.value.data.size - 1) {
+                if (visibleItems.isNotEmpty() && visibleItems.last().index == uiState.value.data.size - 2) {
                     viewModel.onScrollEnd()
                 }
             }

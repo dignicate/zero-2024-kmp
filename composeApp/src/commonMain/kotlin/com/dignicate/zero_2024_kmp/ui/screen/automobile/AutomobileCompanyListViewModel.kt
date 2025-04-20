@@ -39,10 +39,7 @@ class AutomobileCompanyListViewModel(
 
     fun onScrollEnd() {
         val uiState = _uiState.value
-        if (uiState.isLoading) {
-            return
-        }
-        if (uiState.nextCursor == Cursor.End) {
+        if (!uiState.shouldProceedPagination) {
             return
         }
         viewModelScope.launch {
@@ -90,6 +87,9 @@ class AutomobileCompanyListViewModel(
         val nextCursor: Cursor<Int> = Cursor.First,
         val data: List<Company> = emptyList(),
     ) {
+        val shouldProceedPagination: Boolean
+            get() = nextCursor != Cursor.End || isLoading
+
         fun success(
             currentCursor: Cursor<Int>,
             nextCursor: Cursor<Int>,
