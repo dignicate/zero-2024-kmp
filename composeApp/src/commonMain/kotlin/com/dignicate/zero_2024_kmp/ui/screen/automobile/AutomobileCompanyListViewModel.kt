@@ -28,11 +28,6 @@ class AutomobileCompanyListViewModel(
 
     fun onCreate() {
         logger.d("onCreate()")
-        viewModelScope.launch {
-            useCase.data.collect {
-                logger.d("data: $it")
-            }
-        }
     }
 
     fun onResume() {
@@ -66,8 +61,7 @@ class AutomobileCompanyListViewModel(
     private fun setupBinding() {
         viewModelScope.launch {
             useCase.data.collect { resourceWithParam ->
-                val resource = resourceWithParam.resource
-                when (resource) {
+                when (val resource = resourceWithParam.resource) {
                     is Resource.Initialized -> {
                         // nothing.
                     }
@@ -77,8 +71,9 @@ class AutomobileCompanyListViewModel(
                     is Resource.Success -> {
                         val nextCursor = resourceWithParam.nextCursor ?: Cursor.End
                         _uiState.value = _uiState.value.success(
+                            currentCursor = resourceWithParam.currentCursor,
                             nextCursor = nextCursor,
-                            data = resource.data,
+                            newData = resource.data,
                         )
                     }
                     is Resource.Failure -> {
@@ -95,16 +90,20 @@ class AutomobileCompanyListViewModel(
         val nextCursor: Cursor<Int> = Cursor.First,
         val data: List<Company> = emptyList(),
     ) {
-
         fun success(
+            currentCursor: Cursor<Int>,
             nextCursor: Cursor<Int>,
-            data: List<Company>
+            newData: List<Company>
         ): UiState {
             return copy(
                 isLoading = false,
                 isRefreshing = false,
                 nextCursor = nextCursor,
-                data = this.data + data,
+                data =
+                    if (currentCursor.isFirst)
+                        newData
+                    else
+                        this.data + newData,
             )
         }
 

@@ -32,6 +32,13 @@ sealed interface Cursor<out T : Any> {
             First, End -> null
             is Next -> value
         }
+
+    val isFirst: Boolean
+        get() = when (this) {
+            First -> true
+            is Next -> false
+            End -> false
+        }
 }
 
 data class ResourceWithCursor<out R : Any, out C : Any>(

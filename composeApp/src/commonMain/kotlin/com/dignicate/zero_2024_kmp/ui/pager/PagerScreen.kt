@@ -3,7 +3,6 @@ package com.dignicate.zero_2024_kmp.ui.pager
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.dignicate.zero_2024_kmp.ui.pager.pages.Page1
 import com.dignicate.zero_2024_kmp.ui.pager.pages.Page2
 import com.dignicate.zero_2024_kmp.ui.pager.pages.Page3
 import com.dignicate.zero_2024_kmp.ui.screen.automobile.AutomobileCompanyListScreen
