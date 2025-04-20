@@ -6,6 +6,7 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
 
@@ -29,6 +30,8 @@ actual fun MyTabPager(
     Column {
         TabRow(
             selectedTabIndex = pagerState.currentPage,
+            containerColor = MyCustomTheme.exColors.appBarBackground,
+            contentColor = MyCustomTheme.exColors.appBarText,
             // optional: ripple + indicator customizationも可能
         ) {
             tabs.forEachIndexed { index, title ->
