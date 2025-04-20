@@ -37,7 +37,7 @@ class AutomobileCompanyListViewModel(
         }
     }
 
-    fun onScrollEnd() {
+    fun onScrollNearlyEnd() {
         val uiState = _uiState.value
         if (!uiState.shouldProceedPagination) {
             return

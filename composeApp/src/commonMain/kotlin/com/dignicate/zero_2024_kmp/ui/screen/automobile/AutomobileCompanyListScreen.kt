@@ -18,7 +18,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -71,8 +70,8 @@ fun AutomobileCompanyListScreen(
     LaunchedEffect(listState) {
         snapshotFlow { listState.layoutInfo.visibleItemsInfo }
             .collect { visibleItems ->
-                if (visibleItems.isNotEmpty() && visibleItems.last().index == uiState.value.data.size - 2) {
-                    viewModel.onScrollEnd()
+                if (visibleItems.isNotEmpty() && visibleItems.last().index >= uiState.value.data.size - 2) {
+                    viewModel.onScrollNearlyEnd()
                 }
             }
     }
