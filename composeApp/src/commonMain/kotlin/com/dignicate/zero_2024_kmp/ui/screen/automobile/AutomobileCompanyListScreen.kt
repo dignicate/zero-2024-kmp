@@ -38,7 +38,6 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.dignicate.zero_2024_kmp.domain.automobile.Company
-import com.dignicate.zero_2024_kmp.ui.appbar.CustomTopAppBar
 import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
 import org.koin.mp.KoinPlatform.getKoin
 
@@ -102,55 +101,41 @@ fun AutomobileCompanyListView(
     isLoading: Boolean,
     listState: LazyListState,
 ) {
-    Scaffold(
+    Box(
         modifier = modifier
-            .fillMaxSize()
-        ,
-        topBar = {
-            CustomTopAppBar(
-                modifier = Modifier,
-                text = "Automobile Company List",
-            )
-        },
-        content = { paddingValues ->
+    ) {
+        LazyColumn(
+            state = listState,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp)
+        ) {
+            items(data) { company ->
+                AutomobileCompanyListItemView(
+                    companyId = company.id,
+                    companyName = company.name,
+                    country = company.country,
+                    foundedYear = company.foundedYear,
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.height(0.dp))
+            }
+        }
+        if (isLoading) {
             Box(
                 modifier = Modifier
-                    .padding(paddingValues)
+                    .fillMaxSize()
+                    .background(color = Color.Transparent),
+                contentAlignment = Alignment.Center,
             ) {
-                LazyColumn(
-                    state = listState,
+                CircularProgressIndicator(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 16.dp)
-                ) {
-                    items(data) { company ->
-                        AutomobileCompanyListItemView(
-                            companyId = company.id,
-                            companyName = company.name,
-                            country = company.country,
-                            foundedYear = company.foundedYear,
-                        )
-                    }
-                    item {
-                        Spacer(modifier = Modifier.height(0.dp))
-                    }
-                }
-                if (isLoading) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(color = Color.Transparent),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .size(48.dp)
-                        )
-                    }
-                }
+                        .size(48.dp)
+                )
             }
-        },
-    )
+        }
+    }
 }
 
 @Composable
