@@ -21,7 +21,7 @@ fun CustomTopAppBar(
             Text(
                 modifier = Modifier,
                 text = text,
-                color = MyCustomTheme.exColors.textMain,
+                color = MyCustomTheme.exColors.appBarText,
             )
         },
         colors = TopAppBarDefaults.topAppBarColors(
