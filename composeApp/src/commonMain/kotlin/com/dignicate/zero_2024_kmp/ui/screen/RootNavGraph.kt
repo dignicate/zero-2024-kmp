@@ -54,7 +54,10 @@ fun NavGraphBuilder.mainNavGraph(
             SettingScreen(rootNavController = rootNavController, paddingValues = innerPadding)
         }
         composable(route = Routes.Tab.route) {
-            TabScreen()
+            TabScreen(
+                rootNavController = rootNavController,
+                paddingValues = innerPadding,
+            )
         }
     }
 }

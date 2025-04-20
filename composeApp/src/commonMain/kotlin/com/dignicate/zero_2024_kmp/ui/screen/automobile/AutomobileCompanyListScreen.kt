@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.NavController
 import com.dignicate.zero_2024_kmp.domain.automobile.Company
 import com.dignicate.zero_2024_kmp.ui.appbar.CustomTopAppBar
 import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
@@ -45,6 +46,7 @@ import org.koin.mp.KoinPlatform.getKoin
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AutomobileCompanyListScreen(
+    rootNavController: NavController,
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     modifier: Modifier,
     viewModel: AutomobileCompanyListViewModel = getKoin().get(),
