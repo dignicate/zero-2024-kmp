@@ -119,7 +119,7 @@ fun AutomobileCompanyListView(
                     state = listState,
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(16.dp)
+                        .padding(horizontal = 16.dp)
                 ) {
                     items(data) { company ->
                         AutomobileCompanyListItemView(
@@ -128,6 +128,9 @@ fun AutomobileCompanyListView(
                             country = company.country,
                             foundedYear = company.foundedYear,
                         )
+                    }
+                    item {
+                        Spacer(modifier = Modifier.height(96.dp))
                     }
                 }
                 if (isLoading) {
