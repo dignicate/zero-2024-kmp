@@ -126,7 +126,7 @@ fun MainScaffold(
                 }
             }
         ) { innerPadding ->
-            logger.d("innerPadding: $innerPadding")
+            logger.d("MainScaffold, innerPadding: $innerPadding")
             RootNavGraph(
                 rootNavController = rootNavController,
                 innerPadding = innerPadding,
