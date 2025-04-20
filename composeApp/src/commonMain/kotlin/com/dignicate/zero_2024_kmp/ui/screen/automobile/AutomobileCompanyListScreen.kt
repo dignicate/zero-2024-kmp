@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -80,7 +79,7 @@ fun AutomobileCompanyListScreen(
     }
 
     PullToRefreshBox(
-        modifier = modifier.safeDrawingPadding(),
+        modifier = modifier,
         onRefresh = {
             viewModel.onRefresh()
         },
@@ -104,7 +103,9 @@ fun AutomobileCompanyListView(
     listState: LazyListState,
 ) {
     Scaffold(
-        modifier = modifier,
+        modifier = modifier
+            .fillMaxSize()
+        ,
         topBar = {
             CustomTopAppBar(
                 modifier = Modifier,
@@ -114,7 +115,6 @@ fun AutomobileCompanyListView(
         content = { paddingValues ->
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
                     .padding(paddingValues)
             ) {
                 LazyColumn(
@@ -132,7 +132,7 @@ fun AutomobileCompanyListView(
                         )
                     }
                     item {
-                        Spacer(modifier = Modifier.height(96.dp))
+                        Spacer(modifier = Modifier.height(0.dp))
                     }
                 }
                 if (isLoading) {

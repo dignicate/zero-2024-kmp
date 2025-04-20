@@ -13,13 +13,13 @@ import com.dignicate.zero_2024_kmp.ui.screen.automobile.AutomobileCompanyListScr
 @Composable
 fun PagerScreen(
     rootNavController: NavController,
-    paddingValues: PaddingValues,
+    modifier: Modifier = Modifier,
     index: Int,
 ) {
     when (index) {
         0 -> AutomobileCompanyListScreen(
             rootNavController = rootNavController,
-            modifier = Modifier.padding(paddingValues),
+            modifier = modifier,
         )
         1 -> Page2()
         2 -> Page3()

@@ -15,15 +15,19 @@ fun TabScreen(
     val tabTitles = listOf("First", "Second", "Third")
     var currentPage by remember { mutableStateOf(0) }
 
-    MyTabPager(
-        tabs = tabTitles,
-        currentPage = currentPage,
-        onPageSelected = { currentPage = it }
-    ) { page ->
-        PagerScreen(
-            rootNavController = rootNavController,
-            paddingValues = paddingValues,
-            index = page
-        )
+    Column(
+        modifier = Modifier
+            .padding(paddingValues)
+    ) {
+        MyTabPager(
+            tabs = tabTitles,
+            currentPage = currentPage,
+            onPageSelected = { currentPage = it }
+        ) { page ->
+            PagerScreen(
+                rootNavController = rootNavController,
+                index = page
+            )
+        }
     }
 }
