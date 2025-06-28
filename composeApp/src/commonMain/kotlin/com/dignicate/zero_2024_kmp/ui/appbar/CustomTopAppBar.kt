@@ -1,6 +1,5 @@
 package com.dignicate.zero_2024_kmp.ui.appbar
 
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -16,7 +15,7 @@ fun CustomTopAppBar(
     text: String,
 ) {
     TopAppBar(
-        modifier = modifier.statusBarsPadding(),
+        modifier = modifier,
         title = {
             Text(
                 modifier = Modifier,

@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,7 +18,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -37,14 +35,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.NavController
 import com.dignicate.zero_2024_kmp.domain.automobile.Company
-import com.dignicate.zero_2024_kmp.ui.appbar.CustomTopAppBar
 import com.dignicate.zero_2024_kmp.ui.design.MyCustomTheme
 import org.koin.mp.KoinPlatform.getKoin
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AutomobileCompanyListScreen(
+    rootNavController: NavController,
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     modifier: Modifier,
     viewModel: AutomobileCompanyListViewModel = getKoin().get(),
@@ -71,14 +70,14 @@ fun AutomobileCompanyListScreen(
     LaunchedEffect(listState) {
         snapshotFlow { listState.layoutInfo.visibleItemsInfo }
             .collect { visibleItems ->
-                if (visibleItems.isNotEmpty() && visibleItems.last().index == uiState.value.data.size - 2) {
-                    viewModel.onScrollEnd()
+                if (visibleItems.isNotEmpty() && visibleItems.last().index >= uiState.value.data.size - 2) {
+                    viewModel.onScrollNearlyEnd()
                 }
             }
     }
 
     PullToRefreshBox(
-        modifier = modifier.safeDrawingPadding(),
+        modifier = modifier,
         onRefresh = {
             viewModel.onRefresh()
         },
@@ -101,54 +100,41 @@ fun AutomobileCompanyListView(
     isLoading: Boolean,
     listState: LazyListState,
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            CustomTopAppBar(
-                modifier = Modifier,
-                text = "Automobile Company List",
-            )
-        },
-        content = { paddingValues ->
+    Box(
+        modifier = modifier
+    ) {
+        LazyColumn(
+            state = listState,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp)
+        ) {
+            items(data) { company ->
+                AutomobileCompanyListItemView(
+                    companyId = company.id,
+                    companyName = company.name,
+                    country = company.country,
+                    foundedYear = company.foundedYear,
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.height(0.dp))
+            }
+        }
+        if (isLoading) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(paddingValues)
+                    .background(color = Color.Transparent),
+                contentAlignment = Alignment.Center,
             ) {
-                LazyColumn(
-                    state = listState,
+                CircularProgressIndicator(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 16.dp)
-                ) {
-                    items(data) { company ->
-                        AutomobileCompanyListItemView(
-                            companyId = company.id,
-                            companyName = company.name,
-                            country = company.country,
-                            foundedYear = company.foundedYear,
-                        )
-                    }
-                    item {
-                        Spacer(modifier = Modifier.height(96.dp))
-                    }
-                }
-                if (isLoading) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(color = Color.Transparent),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .size(48.dp)
-                        )
-                    }
-                }
+                        .size(48.dp)
+                )
             }
-        },
-    )
+        }
+    }
 }
 
 @Composable

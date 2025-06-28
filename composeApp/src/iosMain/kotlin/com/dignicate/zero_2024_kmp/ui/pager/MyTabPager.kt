@@ -21,7 +21,7 @@ actual fun MyTabPager(
     onPageSelected: (Int) -> Unit,
     content: @Composable (Int) -> Unit
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier) {
         TabRow(
             selectedTabIndex = currentPage,
             containerColor = MyCustomTheme.exColors.tabBackground,

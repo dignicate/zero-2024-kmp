@@ -17,6 +17,7 @@ import com.dignicate.zero_2024_kmp.ui.screen.home.BottomNavigationBar
 import com.dignicate.zero_2024_kmp.ui.screen.home.NavigationItem
 import com.dignicate.zero_2024_kmp.ui.screen.home.NavigationSideBar
 import com.dignicate.zero_2024_kmp.ui.screen.home.navigationItemsLists
+import com.dignicate.zero_2024_kmp.util.logger
 
 // ref: https://proandroiddev.com/how-to-integrate-bottom-navigation-bar-for-compact-screens-and-a-navigation-rail-for-larger-screens-c7dc3baab0e7
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -125,6 +126,7 @@ fun MainScaffold(
                 }
             }
         ) { innerPadding ->
+            logger.d("MainScaffold, innerPadding: $innerPadding")
             RootNavGraph(
                 rootNavController = rootNavController,
                 innerPadding = innerPadding,
