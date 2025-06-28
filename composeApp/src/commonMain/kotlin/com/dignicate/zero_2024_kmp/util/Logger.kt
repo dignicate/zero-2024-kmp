@@ -9,34 +9,36 @@ fun setTestLogger() {
 }
 
 private object LightHouseGamesLogger : UntaggedLogWrapper {
-    private val wrappers: MutableMap<String, TaggedLogWrapper> = mutableMapOf()
+    private val wrappers: MutableMap<String, LightHouseGamesLoggerTagged> = mutableMapOf()
+
+    private const val DEFAULT_TAG = "no_tag"
 
     override fun tag(tag: String): LogWrapper {
         return wrapperWithTag(tag)
     }
 
-    private fun wrapperWithTag(tag: String): TaggedLogWrapper {
-        return wrappers.getOrPut(tag) { TaggedLogWrapper(tag, this) }
+    private fun wrapperWithTag(tag: String): LightHouseGamesLoggerTagged {
+        return wrappers.getOrPut(tag) { LightHouseGamesLoggerTagged(tag) }
     }
 
     override fun d(message: String) {
-        logging().debug { message }
+        logging(DEFAULT_TAG).debug { message }
     }
 
     override fun i(message: String) {
-        logging().info { message }
+        logging(DEFAULT_TAG).info { message }
     }
 
     override fun w(throwable: Throwable?, message: String) {
-        logging().warn(throwable) { message }
+        logging(DEFAULT_TAG).warn(throwable) { message }
     }
 
     override fun e(throwable: Throwable?, message: String) {
-        logging().error(throwable) { message }
+        logging(DEFAULT_TAG).error(throwable) { message }
     }
 
     override fun v(message: String) {
-        logging().verbose { message }
+        logging(DEFAULT_TAG).verbose { message }
     }
 }
 
@@ -54,28 +56,27 @@ interface LogWrapper {
 
 interface UntaggedLogWrapper : LogWrapper, LogWrapper.Untagged
 
-data class TaggedLogWrapper(
+data class LightHouseGamesLoggerTagged(
     val tag: String,
-    val wrapper : LogWrapper,
 ) : LogWrapper {
     override fun d(message: String) {
-        wrapper.d(message)
+        logging(tag).d { message }
     }
 
     override fun i(message: String) {
-        wrapper.i(message)
+        logging(tag).i { message }
     }
 
     override fun w(throwable: Throwable?, message: String) {
-        wrapper.w(throwable, message)
+        logging(tag).w(throwable) { message }
     }
 
     override fun e(throwable: Throwable?, message: String) {
-        wrapper.e(throwable, message)
+        logging(tag).e(throwable) { message }
     }
 
     override fun v(message: String) {
-        wrapper.v(message)
+        logging(tag).v { message }
     }
 }
 
@@ -103,6 +104,6 @@ private object TestLogger : UntaggedLogWrapper {
     }
 
     override fun tag(tag: String): LogWrapper {
-        return TaggedLogWrapper(tag, this)
+        return this
     }
 }
