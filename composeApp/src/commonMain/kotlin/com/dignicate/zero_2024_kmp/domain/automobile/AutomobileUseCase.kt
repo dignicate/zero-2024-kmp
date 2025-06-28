@@ -25,6 +25,7 @@ class AutomobileUseCase(
                     repository.getAutomobileCompanyList(it.param.limit, it.cursor)
                 },
                 nextCursor = { _, data, cursor ->
+                    logger.tag("automobile").d("nextCursor(data = $data, cursor = $cursor)")
                     if (data.isEmpty()) {
                         Cursor.End
                     } else {
@@ -38,7 +39,7 @@ class AutomobileUseCase(
             )
 
     suspend fun fetch(limit: Int, cursor: Cursor<Int>) {
-        logger.d("fetch(limit = $limit, cursor = $cursor)")
+        logger.tag("automobile").d("fetch(limit = $limit, cursor = $cursor)")
         if (cursor == Cursor.End) {
             return
         }
