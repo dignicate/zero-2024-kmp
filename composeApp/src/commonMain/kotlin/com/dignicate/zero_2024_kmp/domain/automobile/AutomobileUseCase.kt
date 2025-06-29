@@ -7,8 +7,11 @@ import com.dignicate.zero_2024_kmp.domain.mapToResource
 import com.dignicate.zero_2024_kmp.util.logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlin.time.Duration.Companion.milliseconds
 
 class AutomobileUseCase(
     private val repository: AutomobileRepository,
@@ -17,8 +20,10 @@ class AutomobileUseCase(
     private val fetchTrigger =
         MutableSharedFlow<ParamWithCursor<FetchParams, Int>>()
 
+    @OptIn(FlowPreview::class)
     val data: StateFlow<ResourceWithCursor<List<Company>, Int>> =
         fetchTrigger
+            .debounce(timeout = 300.milliseconds)
             .mapToResource(
                 scope = scope,
                 then = {
@@ -39,7 +44,7 @@ class AutomobileUseCase(
             )
 
     suspend fun fetch(limit: Int, cursor: Cursor<Int>) {
-        logger.tag("automobile").d("fetch(limit = $limit, cursor = $cursor)")
+        logger.tag("automobile").v("fetch(limit = $limit, cursor = $cursor)")
         if (cursor == Cursor.End) {
             return
         }

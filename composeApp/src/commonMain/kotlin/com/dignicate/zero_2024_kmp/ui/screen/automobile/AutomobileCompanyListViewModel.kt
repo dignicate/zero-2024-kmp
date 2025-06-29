@@ -36,6 +36,9 @@ class AutomobileCompanyListViewModel(
 
     fun onScrollNearlyEnd() {
         val uiState = _uiState.value
+        logger.tag("automobile").v(
+            "onScrollNearlyEnd() - nextCursor = ${uiState.nextCursor}, shouldProceedPagination = ${uiState.shouldProceedPagination}"
+        )
         if (!uiState.shouldProceedPagination) {
             return
         }

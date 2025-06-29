@@ -12,7 +12,7 @@ class AutomobileRepositoryImpl(
     private val apiClient: AutomobileApiClient,
 ) : AutomobileRepository {
     override fun getAutomobileCompanyList(limit: Int, cursor: Cursor<Int>): Flow<Result<List<Company>>> {
-        logger.tag("automobile").d("getAutomobileCompanyList()")
+        logger.tag("automobile").d("getAutomobileCompanyList(), limit = $limit, cursor = $cursor")
         return callbackFlow {
             try {
                 val page = when (cursor) {
