@@ -24,21 +24,21 @@ class AutomobileCompanyListViewModel(
 
     val uiState = _uiState.asStateFlow()
 
-    private val limit = 10
+    private val limit = 20
 
     fun onCreate() {
-        logger.d("onCreate()")
+        logger.tag("automobile").d("onCreate()")
     }
 
     fun onResume() {
-        logger.d("onResume()")
-        viewModelScope.launch {
-            useCase.fetch(limit = limit, cursor = Cursor.First)
-        }
+        logger.tag("automobile").d("onResume()")
     }
 
     fun onScrollNearlyEnd() {
         val uiState = _uiState.value
+        logger.tag("automobile").v(
+            "onScrollNearlyEnd() - nextCursor = ${uiState.nextCursor}, shouldProceedPagination = ${uiState.shouldProceedPagination}"
+        )
         if (!uiState.shouldProceedPagination) {
             return
         }
@@ -48,7 +48,7 @@ class AutomobileCompanyListViewModel(
     }
 
     fun onRefresh() {
-        logger.d("onRefresh()")
+        logger.tag("automobile").d("onRefresh()")
         viewModelScope.launch {
             _uiState.value = _uiState.value.refresh()
             useCase.fetch(limit = limit, cursor = Cursor.First)
