@@ -32,9 +32,6 @@ class AutomobileCompanyListViewModel(
 
     fun onResume() {
         logger.tag("automobile").d("onResume()")
-        viewModelScope.launch {
-            useCase.fetch(limit = limit, cursor = Cursor.First)
-        }
     }
 
     fun onScrollNearlyEnd() {
